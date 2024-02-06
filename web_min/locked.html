@@ -1,0 +1,25 @@
+<div class="container" id="lock_container">
+	<button class="lock_button myGlower" onclick="showPinInterface();">
+		<i class="fa fa-lock"></i>
+	</button>
+</div>
+
+<div class="pin_container" id="pin_container" style="visibility: hidden;">
+	<input type="password" enabled="false" maxlength=1 id="pin_1" next="pin_2", prev="pin_1" />
+	<input type="password" enabled="false" maxlength=1 id="pin_2" next="pin_3", prev="pin_1" />
+	<input type="password" enabled="false" maxlength=1 id="pin_3" next="pin_4", prev="pin_2" />
+	<input type="password" enabled="false" maxlength=1 id="pin_4" next="pin_4", prev="pin_3" />
+	<button class="pin_btn" onclick="pinClick(1);">1</button>
+	<button class="pin_btn" onclick="pinClick(2);">2</button>
+	<button class="pin_btn" onclick="pinClick(3);">3</button>
+	<button class="pin_btn" onclick="pinClick(4);">4</button>
+	<button class="pin_btn" onclick="pinClick(5);">5</button>
+	<button class="pin_btn" onclick="pinClick(6);">6</button>
+	<button class="pin_btn" onclick="pinClick(7);">7</button>
+	<button class="pin_btn" onclick="pinClick(8);">8</button>
+	<button class="pin_btn" onclick="pinClick(9);">9</button>
+	<button class="pin_btn borderless" style="visibility: hidden;">0</button> <!-- placeholder -->
+	<button class="pin_btn" onclick="pinClick(0);">0</button>
+	<button class="pin_btn borderless" onclick="clearPin();"><i class="fa fa-backspace"></i></button>
+	<p class="pin_text" id="wrong_pin_msg" style="visibility: hidden;">Falsche PIN</p>
+</div>

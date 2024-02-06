@@ -1,5 +1,7 @@
 <?php
 
+$remove[] = "'";
+
 $result = '';
 $lines = file($_SERVER['DOCUMENT_ROOT'].'/openWB/openwb.conf');
 foreach($lines as $line) {
@@ -36,6 +38,12 @@ foreach($lines as $line) {
 	if(strpos($line, "displaytheme=") !== false) {
 		list(, $displaythemeold) = explode("=", $line);
 	}
+	if(strpos($line, "wallboxname=") !== false) {
+		$wallboxname = str_replace($remove, "", explode('=', $line, 2)[1]);
+	} else {
+		$wallboxname = "openWB";
+	}
 }
 $displaypincodeold = trim($displaypincodeold);
+$wallboxname = str_replace($remove, "", $wallboxname);
 ?>

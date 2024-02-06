@@ -1,0 +1,170 @@
+:root {
+	--background-color-openWB: #22092C;
+	--text-color-openWB: #FFFFFF;
+	--primary-color-openWB: #872341;
+	--secondary-color-openWB: #BE3144;
+	--tertiary-color-openWB: #F05941;
+
+	--button-size: 200px;
+	--button-caption-size: 50pt;
+
+	/* Overwrite Pico Style */
+	--background-color: var(--background-color-openWB) !important;
+	--color: var(--text-color-openWB) !important;
+	--h1-color: var(--text-color-openWB) !important;
+	--h2-color: var(--text-color-openWB) !important;
+	--h3-color: var(--text-color-openWB) !important;
+	--h4-color: var(--text-color-openWB) !important;
+	--h5-color: var(--text-color-openWB) !important;
+	--h6-color: var(--text-color-openWB) !important;
+	--primary: var(--primary-color-openWB) !important;
+	--primary-inverse: var(--text-color-openWB) !important;
+}
+
+html, body {
+	/* make everything static, no scrolling */
+	margin: 0;
+	height: 100%;
+	overflow: hidden
+}
+
+body {
+	color: var(--text-color-openWB) !important;
+	background-color: var(--background-color-openWB) !important;
+	
+	height: 100vh;
+	width: 100vw;
+}
+
+.container {
+	margin: 0;
+	padding: 5%;
+	height: 100%;
+	width: 100%;
+	position: relative;
+}
+
+/* UNLOCK BUTTON */
+@-webkit-keyframes glow {
+    to {
+		border-color: var(--tertiary-color-openWB);
+		-webkit-box-shadow: 0 0 5px var(--tertiary-color-openWB);
+		-moz-box-shadow: 0 0 5px var(--tertiary-color-openWB);
+		box-shadow: 0 0 5px var(--tertiary-color-openWB);
+	}
+}
+
+.lock_button {
+	width: var(--button-size);
+	height: var(--button-size);
+	font-size: var(--button-caption-size);
+	background-color: var(--primary-color-openWB);
+	border-color: var(--secondary-color-openWB);
+	border-width: 15px;
+	border-radius: 50%;
+
+	position: absolute;
+	top: 50vh;
+  	left: 50vw;
+	transform: translate(-50%, -50%);
+
+	-webkit-animation: glow 0.8s infinite alternate;
+	-webkit-transition: border 0.8s linear, box-shadow 0.8s linear;
+	-moz-transition: border 0.8s linear, box-shadow 0.8s linear;
+	transition: border 0.8s linear, box-shadow 0.8s linear;
+}
+
+
+/* PIN CODE */
+.pin_container {
+	position: absolute;
+	top: 35vh;
+  	left: 50vw;
+	transform: translate(-50%, -50%);
+
+	background-color: var(--background-color-openWB);
+	
+	width: var(--button-size);
+	height: var(--button-size);
+
+}
+
+input[type="password"] {
+	--border-width: 3px;
+
+    padding: 0px;
+    border: var(--border-width) solid var(--secondary-color-openWB);
+    width: calc(var(--button-size) / 4 - 2 * var(--border-width));
+    height: calc(var(--button-size) / 4 - 2 * var(--border-width));
+
+    text-align: center;
+    font-size: 25px;
+	line-height: calc(var(--button-size) / 4 - 2 * var(--border-width));
+	background-color: var(--background-color-openWB);
+}
+
+input:focus {
+	outline: none !important;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+textarea:focus {
+    outline: none !important;
+	-webkit-appearance: none !important;
+	border-color: var(--tertiary-color-openWB);
+}
+
+.pin_btn {
+	--border-width: 3px;
+
+	display: inline;
+	padding: 0;
+	margin: 0;
+	margin-bottom: 2px;
+
+    width: calc(var(--button-size) / 3 - 2 * var(--border-width));
+    height: calc(var(--button-size) / 3 - 2 * var(--border-width));
+    line-height: calc(var(--button-size) / 3 - 2 * var(--border-width));
+
+	border: var(--border-width) solid var(--secondary-color-openWB);
+	border-radius: 50%;
+
+    text-align: center;
+    font-size: 25px;
+	line-height: calc(var(--button-size) / 3  - 2 * var(--border-width) - 3px);
+	background-color: var(--background-color-openWB);
+}
+
+.pin_btn:focus {
+	outline: none;
+}
+
+.borderless {
+	border: 0;
+	font-size: 15px;
+}
+
+.pin_text {
+	--border-width: 3px;
+
+	margin-top: 15px;
+	width: calc(var(--button-size) - 2*var(--border-width));
+
+	text-align: center;
+	padding: 5px;
+
+	border: var(--border-width) solid var(--tertiary-color-openWB);
+	border-radius: 5px;
+}
+
+.switch_to_pro {
+	position: absolute;
+	right: 50px;
+	bottom: 5px;
+}

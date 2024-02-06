@@ -25,6 +25,9 @@
 		} elseif ( $isssold == 1 ) {
 			// load chargepoint only page
 			include 'isss.html';
+		} elseif ( $minimal_interfaceold == 1 && $_GET["force_classic_ui"] != "true") {
+			// load minimalistic interace
+			header('Location: ../web_min/index.php');
 		} else {
 			// load normal UI
 			// check if theme cookie exists and theme is installed
