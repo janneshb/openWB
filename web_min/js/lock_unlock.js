@@ -33,8 +33,11 @@ function unlock() {
 		const loc = window.location.href.split("?")[0] + '?logged_in=true';
 		window.location.replace(loc);
 
-	} else { 
+	} else {
 		document.getElementById("wrong_pin_msg").style.visibility = "visible";
+		setTimeout(() => {
+			for (let i = 0; i < 4; i++) clearPin();
+		}, 300);
 	}
 }
 
