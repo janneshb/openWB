@@ -105,6 +105,8 @@ function setupInactivityDetection() {
     // Reset the inactivity timer on user activity
     document.addEventListener("keypress", resetInactivityTimer);
     document.addEventListener("touchstart", resetInactivityTimer);
+    document.addEventListener("click", resetInactivityTimer);
+    document.addEventListener("mousemove", resetInactivityTimer);
     
     // Start the inactivity timer immediately
     resetInactivityTimer();
