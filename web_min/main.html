@@ -1,0 +1,29 @@
+<button class="big_button big_button_relative glowing hidden" id="stop_charging_button" style="opacity: 0" onclick="stopCharging(this);">
+    <i class="fa fa-pause"></i>
+</button>
+
+<button class="big_button big_button_relative glowing" id="start_charging_button" onclick="startCharging(this);">
+    <i class="fa fa-bolt"></i>
+</button>
+<div class="loading-dots inline hidden" id="charging_dots"><h1 class="dot one">.</h1><h1 class="dot two">.</h1><h1 class="dot three">.</h1></div>
+<button class="big_button big_button_relative no_background hidden inline" id="the_car" style="opacity: 0;" disabled>
+    <i class="fa fa-car"></i>
+</button>
+
+<div class="container centered" id="charging_speed_container">
+    <div class="radio_container">
+        <label for="solar"><i class="fa fa-sun"></i></label>
+        <input type="radio" checked="checked" name="charging_speed" value="solar">
+        <span>min</span>
+    </div>
+    <div class="radio_container">
+        <label for="slow"><i class="fa fa-frog"></i></label>
+        <input type="radio" name="charging_speed" value="slow">
+        <span>11kW</span>
+    </div>
+    <div class="radio_container">
+        <label for="fast"><i class="fa fa-running"></i></label>
+        <input type="radio" name="charging_speed" value="fast">
+        <span>22kW</span>
+    </div>
+</div>

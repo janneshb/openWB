@@ -5,8 +5,10 @@
 	--secondary-color-openWB: #BE3144;
 	--tertiary-color-openWB: #F05941;
 
-	--button-size: 200px;
-	--button-caption-size: 50pt;
+	--button-size: 300px;
+	--button-caption-size: 75pt;
+
+	--radio-spacing: 75px;
 
 	/* Overwrite Pico Style */
 	--background-color: var(--background-color-openWB) !important;
@@ -23,28 +25,69 @@
 
 html, body {
 	/* make everything static, no scrolling */
-	margin: 0;
+	width: 100%;
 	height: 100%;
-	overflow: hidden
+	margin: 0px;
+	padding: 0px;
 }
 
 body {
 	color: var(--text-color-openWB) !important;
 	background-color: var(--background-color-openWB) !important;
-	
-	height: 100vh;
-	width: 100vw;
+}
+
+a {
+	color: var(--primary-color-openWB);
+	text-decoration: none;
+}
+
+a:hover {
+	color: var(--primary-color-openWB);
+	text-decoration: none;
 }
 
 .container {
-	margin: 0;
 	padding: 5%;
-	height: 100%;
 	width: 100%;
 	position: relative;
+	text-align: center;
 }
 
-/* UNLOCK BUTTON */
+.inner_container {
+	margin: 0;
+	padding: 5%;
+	width: 100%;
+}
+
+/* BIG BUTTONS */
+.big_button {
+	width: var(--button-size);
+	height: var(--button-size);
+	font-size: var(--button-caption-size);
+	background-color: var(--primary-color-openWB);
+	border-color: var(--secondary-color-openWB);
+	border-width: calc(var(--button-caption-size) / 3);
+	border-radius: 50%;
+	transition: .05s;
+}
+
+.big_button:disabled, .big_button[disabled] {
+	color: var(--text-color-openWB);
+	opacity: 1;
+}
+
+.big_button_abolute {
+	position: absolute;
+	top: 50vh;
+  	left: 50vw;
+	transform: translate(-50%, -50%);
+}
+
+.big_button_relative {
+	position: relative;
+	margin: auto;
+}
+
 @-webkit-keyframes glow {
     to {
 		border-color: var(--tertiary-color-openWB);
@@ -54,26 +97,26 @@ body {
 	}
 }
 
-.lock_button {
-	width: var(--button-size);
-	height: var(--button-size);
-	font-size: var(--button-caption-size);
-	background-color: var(--primary-color-openWB);
-	border-color: var(--secondary-color-openWB);
-	border-width: 15px;
-	border-radius: 50%;
-
-	position: absolute;
-	top: 50vh;
-  	left: 50vw;
-	transform: translate(-50%, -50%);
-
+.glowing {
 	-webkit-animation: glow 0.8s infinite alternate;
 	-webkit-transition: border 0.8s linear, box-shadow 0.8s linear;
 	-moz-transition: border 0.8s linear, box-shadow 0.8s linear;
 	transition: border 0.8s linear, box-shadow 0.8s linear;
 }
 
+.no_background {
+	background-color: transparent;
+	border-color: transparent;
+}
+
+.hidden {
+	display: none !important;
+	opacity: 0;
+}
+
+.inline {
+	display: inline-block;
+}
 
 /* PIN CODE */
 .pin_container {
@@ -90,15 +133,15 @@ body {
 }
 
 input[type="password"] {
-	--border-width: 3px;
+	--border-width: 5px;
 
     padding: 0px;
     border: var(--border-width) solid var(--secondary-color-openWB);
-    width: calc(var(--button-size) / 4 - 2 * var(--border-width));
+    width: calc(var(--button-size) / 4 - 2 * var(--border-width) - 2px);
     height: calc(var(--button-size) / 4 - 2 * var(--border-width));
 
     text-align: center;
-    font-size: 25px;
+    font-size: 50px;
 	line-height: calc(var(--button-size) / 4 - 2 * var(--border-width));
 	background-color: var(--background-color-openWB);
 }
@@ -118,42 +161,41 @@ textarea:focus {
     outline: none !important;
 	-webkit-appearance: none !important;
 	border-color: var(--tertiary-color-openWB);
+	caret-color: transparent;
 }
 
 .pin_btn {
-	--border-width: 3px;
+	--border-width: 7px;
 
 	display: inline;
 	padding: 0;
 	margin: 0;
-	margin-bottom: 2px;
+	margin-bottom: 3px;
 
-    width: calc(var(--button-size) / 3 - 2 * var(--border-width));
-    height: calc(var(--button-size) / 3 - 2 * var(--border-width));
-    line-height: calc(var(--button-size) / 3 - 2 * var(--border-width));
+    width: calc(var(--button-size) / 3 - (2 * var(--border-width)));
+    height: calc(var(--button-size) / 3 - (2 * var(--border-width)));
+    line-height: calc(var(--button-size) / 3 - (2 * var(--border-width)));
 
 	border: var(--border-width) solid var(--secondary-color-openWB);
 	border-radius: 50%;
 
     text-align: center;
-    font-size: 25px;
-	line-height: calc(var(--button-size) / 3  - 2 * var(--border-width) - 3px);
+    font-size: calc(var(--button-caption-size) / 2);
+	/*line-height: calc(var(--button-size) / 3  - 2 * var(--border-width) - 20px);*/
+	line-height: 0;
 	background-color: var(--background-color-openWB);
+
+	vertical-align: middle;
 }
 
 .pin_btn:focus {
 	outline: none;
 }
 
-.borderless {
-	border: 0;
-	font-size: 15px;
-}
-
 .pin_text {
-	--border-width: 3px;
+	--border-width: 7px;
 
-	margin-top: 15px;
+	margin-top: 5px;
 	width: calc(var(--button-size) - 2*var(--border-width));
 
 	text-align: center;
@@ -163,8 +205,120 @@ textarea:focus {
 	border-radius: 5px;
 }
 
+/* GENERAL */
+.borderless {
+	border: 0;
+}
+
+.bordered {
+	--border-width: 10px;
+	border: var(--border-width) solid var(--secondary-color-openWB);
+	border-radius: 10px;
+}
+
+.centered {
+	text-align: center;
+}
+
+/* RADIO BUTTONS */
+.radio_container {
+	display: inline-block;
+	text-align: center;
+	min-width: var(--radio-spacing);
+	padding: 0;
+}
+
+.radio_container:first-child {
+	margin-right: var(--radio-spacing);
+}
+
+.radio_container:last-child {
+	margin-left: var(--radio-spacing);
+}
+
+.radio_container > label {
+	padding: 0;
+	margin: 0;
+	margin-bottom: 15px;
+	font-size: calc(var(--button-caption-size) / 2);
+}
+
+.radio_container > input[type=radio] {
+	margin: 0;
+	margin-bottom: 15px;
+    border: 5px var(--primary) solid;
+    width: calc(var(--button-caption-size) / 2);
+    height: calc(var(--button-caption-size) / 2);
+}
+
+.radio_container > input[type='radio']:checked {
+    border: 10px var(--primary) solid;
+	background: var(--tertiary-color-openWB);
+}
+
+.radio_container > span {
+	display: block;
+}
+
+/* LOADING ANIMATION */
+.loading-dots {
+	text-align: center;
+	z-index: 5;
+
+	.dot {
+		display: inline;
+		margin-left: 0.2em;
+		margin-right: 0.2em;
+		position: relative;
+		top: -0.5em;
+		font-size: 3.5em;
+		opacity: 0;
+		animation: showHideDot 2.5s ease-in-out infinite;
+
+		&.one { animation-delay: 0.2s; }
+		&.two { animation-delay: 0.4s; }
+		&.three { animation-delay: 0.6s; }
+	}
+}
+
+@keyframes showHideDot {
+	0% { opacity: 0; }
+	50% { opacity: 1; }
+	60% { opacity: 1; }
+	100% { opacity: 0; }
+}
+
+/* FOOTER */
+footer {
+	height: 50px;
+	bottom: 0;
+	position: fixed;
+	padding: 0 !important;
+	padding-left: 25px !important;
+	padding-right: 25px !important;
+}
+
+.settings {
+	display: inline-block;
+	width: 33%;
+	float: left;
+	text-align: left;
+}
+
+.footer_title {
+	display: inline-block;
+	width: 33%;
+	text-align:center;
+}
+
 .switch_to_pro {
+	/*
 	position: absolute;
 	right: 50px;
 	bottom: 5px;
+	*/
+	display: inline-block;
+	width: 33%;
+	float: right;
+	text-align: right;
 }

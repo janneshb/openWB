@@ -14,7 +14,10 @@
 	<link rel="stylesheet" href="css/pico.min.css">
 	<link rel="stylesheet" type="text/css" href="/openWB/web/fonts/font-awesome-5.8.2/css/all.css">
 	<link rel="stylesheet" href="css/openWB_minimalist.css">
-
+	
+	<script src="js/animation.js"></script>
+	<script src="js/lock_unlock.js"></script>
+	<script src="js/charging_interface.js"></script>
 	<script src="js/main.js"></script>
 </head>
 <body>
@@ -32,14 +35,16 @@
 		<?php
 		if (trim($displaypinaktivold) != "1" || (isset($_GET["logged_in"]) && $_GET["logged_in"] == "true")) {
 			?>
-			<h4 class="switch_to_pro"><a href="/openWB/web/index.php?force_classic_ui=true">Profimodus&nbsp;<i class="fa fa-angle-right"></i></a></h4>
 			<div class="container">
-				<h1><?php echo $wallboxname; ?></h1>
-				
 			<?php
 			include 'main.html';
 			?>
 			</div>
+			<footer>
+				<p class="settings" style="visibility: hidden;"><a href="/openWB/web_min/settings.php"><i class="fa fa-cog"></i>&nbsp;Einstellungen</a></p>
+				<p class="footer_title"><?php echo $wallboxname; ?></p>
+				<p class="switch_to_pro"><a href="/openWB/web/index.php?force_classic_ui=true">Profimodus&nbsp;<i class="fa fa-angle-right"></i></a></p>
+			</footer>
 			<?php
 		} else {
 			include 'locked.html';
