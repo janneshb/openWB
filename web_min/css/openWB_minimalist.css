@@ -10,6 +10,8 @@
 
 	--radio-spacing: 50px;
 
+	--pin-field-size: 50vh;
+
 	/* Overwrite Pico Style */
 	--background-color: var(--background-color-openWB) !important;
 	--color: var(--text-color-openWB) !important;
@@ -128,9 +130,8 @@ a:hover {
 
 	background-color: var(--background-color-openWB);
 	
-	width: var(--button-size);
-	height: var(--button-size);
-
+	width: var(--pin-field-size);
+	height: var(--pin-field-size);
 }
 
 input[type="password"] {
@@ -138,12 +139,12 @@ input[type="password"] {
 
     padding: 0px;
     border: var(--border-width) solid var(--secondary-color-openWB);
-    width: calc(var(--button-size) / 4 - 2 * var(--border-width) - 0.05px);
-    height: calc(var(--button-size) / 4 - 2 * var(--border-width));
+    width: calc(var(--pin-field-size) / 4 - 2 * var(--border-width) - 0.05px);
+    height: calc(var(--pin-field-size) / 4 - 2 * var(--border-width));
 
     text-align: center;
     font-size: 50px;
-	line-height: calc(var(--button-size) / 4 - 2 * var(--border-width));
+	line-height: calc(var(--pin-field-size) / 4 - 2 * var(--border-width));
 	background-color: var(--background-color-openWB);
 }
 
@@ -173,16 +174,16 @@ textarea:focus {
 	margin: 0;
 	margin-bottom: 3px;
 
-    width: calc(var(--button-size) / 3 - (2 * var(--border-width)));
-    height: calc(var(--button-size) / 3 - (2 * var(--border-width)));
-    line-height: calc(var(--button-size) / 3 - (2 * var(--border-width)));
+    width: calc(var(--pin-field-size) / 3 - (2 * var(--border-width)));
+    height: calc(var(--pin-field-size) / 3 - (2 * var(--border-width)));
+    line-height: calc(var(--pin-field-size) / 3 - (2 * var(--border-width)));
 
 	border: var(--border-width) solid var(--secondary-color-openWB);
 	border-radius: 50%;
 
     text-align: center;
     font-size: calc(var(--button-caption-size) / 2);
-	/*line-height: calc(var(--button-size) / 3  - 2 * var(--border-width) - 20px);*/
+	line-height: calc(var(--pin-field-size) / 3  - 2 * var(--border-width) - 20px);
 	line-height: 0;
 	background-color: var(--background-color-openWB);
 
@@ -197,7 +198,7 @@ textarea:focus {
 	--border-width: 7px;
 
 	margin-top: 5px;
-	width: calc(var(--button-size) - 2*var(--border-width));
+	width: calc(var(--pin-field-size) - 2*var(--border-width));
 
 	text-align: center;
 	padding: 5px;
