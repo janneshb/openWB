@@ -10,6 +10,9 @@ if ($isssold == 1) {
 } else {
 	if ($simplemodeold == 1) {
 		include 'simple/index.php';
+	} elseif ( $minimal_interfaceold == 1 && $_GET["force_classic_ui"] != "true") {
+		// load minimalistic interace
+		header('Location: ../../web_min/index.php');
 	} else {
 		// das gewählte Theme einbinden
 		switch ($displaythemeold) {
