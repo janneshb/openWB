@@ -1,6 +1,6 @@
 #!/bin/bash
 OPENWBBASEDIR=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
-echo "$(OPENWBBASEDIR)"
+echo "$OPENWBBASEDIR"
 LOGFILE="/var/log/openWB.log"
 # always check for existing log file!
 if [[ ! -f $LOGFILE ]]; then
