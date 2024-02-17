@@ -613,7 +613,8 @@
 					});
 
 					$('#backend .reloadBtn').click(function() {
-						location.reload();
+						window.location = window.location.href.split("?")[0];
+						// location.reload();
 					});
 				</script>
 			</div>

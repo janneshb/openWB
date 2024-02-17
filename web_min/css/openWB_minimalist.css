@@ -5,8 +5,8 @@
 	--secondary-color-openWB: #BE3144;
 	--tertiary-color-openWB: #F05941;
 
-	--button-size: 30vh;
-	--button-caption-size: 30pt;
+	--button-size: 35vh;
+	--button-caption-size: 40pt;
 
 	--radio-spacing: 50px;
 
@@ -116,7 +116,7 @@ a:hover {
 }
 
 .inline {
-	display: inline-block;
+	display: inline;
 }
 
 /* PIN CODE */
@@ -134,11 +134,11 @@ a:hover {
 }
 
 input[type="password"] {
-	--border-width: 5px;
+	--border-width: 3px;
 
     padding: 0px;
     border: var(--border-width) solid var(--secondary-color-openWB);
-    width: calc(var(--button-size) / 4 - 2 * var(--border-width) - 2px);
+    width: calc(var(--button-size) / 4 - 2 * var(--border-width) - 0.05px);
     height: calc(var(--button-size) / 4 - 2 * var(--border-width));
 
     text-align: center;
@@ -166,7 +166,7 @@ textarea:focus {
 }
 
 .pin_btn {
-	--border-width: 7px;
+	--border-width: 3px;
 
 	display: inline;
 	padding: 0;
@@ -248,8 +248,8 @@ textarea:focus {
 	margin: 0;
 	margin-bottom: 15px;
     border: 5px var(--primary) solid;
-    width: calc(var(--button-caption-size) / 2);
-    height: calc(var(--button-caption-size) / 2);
+    width: calc(var(--button-caption-size) / 1.5);
+    height: calc(var(--button-caption-size) / 1.5);
 }
 
 .radio_container > input[type='radio']:checked {
