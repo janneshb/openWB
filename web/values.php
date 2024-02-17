@@ -158,6 +158,9 @@ foreach($lines as $line) {
 	if(strpos($line, "ssdisplay=") !== false) {
 		list(, $ssdisplayold) = explode("=", $line);
 	}
+	if(strpos($line, "minimal_interface=") !== false) {
+		list(, $minimal_interfaceold) = explode("=", $line);
+	}
 }
 $displaypincodeold = str_replace("\n", '', $displaypincodeold);
 $themeold = preg_replace('~[\r\n]+~', '', $themeold);
