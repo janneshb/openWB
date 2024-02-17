@@ -5,10 +5,10 @@
 	--secondary-color-openWB: #BE3144;
 	--tertiary-color-openWB: #F05941;
 
-	--button-size: 300px;
-	--button-caption-size: 75pt;
+	--button-size: 30vh;
+	--button-caption-size: 30pt;
 
-	--radio-spacing: 75px;
+	--radio-spacing: 50px;
 
 	/* Overwrite Pico Style */
 	--background-color: var(--background-color-openWB) !important;
@@ -26,9 +26,10 @@
 html, body {
 	/* make everything static, no scrolling */
 	width: 100%;
-	height: 100%;
-	margin: 0px;
+	height: 100vh;
 	padding: 0px;
+	overflow: hidden;
+	margin: 0;
 }
 
 body {
