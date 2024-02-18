@@ -1,3 +1,22 @@
+<script>
+    $('#start_charging_button').on("click", function(event){
+        var lp = 1; // charging point 1 by default
+        publish("1", "openWB/set/lp/" + lp + "/ChargePointEnabled");
+    });
+
+    $('#stop_charging_button').on("click", function(event){
+        var lp = 1; // charging point 1 by default
+        publish("0", "openWB/set/lp/" + lp + "/ChargePointEnabled");
+    });
+    
+    $('.chargeModeRadioBtn').on("click", function(event){
+        if( displaylocked == false ){
+            var chargeMode = $(this).attr("data-chargeMode");
+            publish(chargeMode, "openWB/set/ChargeMode");
+        }
+    });
+</script>
+
 <button class="big_button big_button_relative glowing hidden" id="stop_charging_button" style="opacity: 0" onclick="stopCharging(this);">
     <i class="fa fa-pause"></i>
 </button>
@@ -13,17 +32,40 @@
 <div class="container centered" id="charging_speed_container">
     <div class="radio_container">
         <label for="solar"><i class="fa fa-sun"></i></label>
-        <input type="radio" checked="checked" name="charging_speed" value="solar">
+        <input type="radio" checked="checked" name="charging_speed" value="solar" class="chargeModeRadioBtn" data-chargeMode="0">
         <span>min + PV</span>
     </div>
-    <div class="radio_container">
+    <!--<div class="radio_container">
         <label for="slow"><i class="fa fa-frog"></i></label>
         <input type="radio" name="charging_speed" value="slow">
         <span>11kW</span>
-    </div>
+    </div>-->
     <div class="radio_container">
         <label for="fast"><i class="fa fa-running"></i></label>
-        <input type="radio" name="charging_speed" value="fast">
-        <span>22kW</span>
+        <input type="radio" name="charging_speed" value="fast" class="chargeModeRadioBtn" data-chargeMode="1">
+        <span>Sofort</span>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        // load scripts synchronously in order specified
+        var scriptsToLoad = [
+            // load mqtt library
+            '/openWB/web/js/mqttws31.js',
+            // some helper functions
+            '/openWB/web/display/cards/helperFunctions.js?ver=20210113',
+            // functions for processing messages
+            '/openWB/web/display/cards/processAllMqttMsg.js?ver=20210301',
+            // functions performing mqtt and start mqtt-service
+            '/openWB/web/display/cards/setupMqttServices.js?ver=20210301',
+        ];
+
+        scriptsToLoad.forEach(function(src) {
+            var script = document.createElement('script');
+            script.src = src;
+            script.async = false;
+            document.body.appendChild(script);
+        });
+    });
+</script>

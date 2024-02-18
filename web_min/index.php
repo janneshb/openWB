@@ -15,10 +15,14 @@
 	<link rel="stylesheet" type="text/css" href="/openWB/web/fonts/font-awesome-5.8.2/css/all.css">
 	<link rel="stylesheet" href="css/openWB_minimalist.css">
 	
+	<!-- UI scripts -->
 	<script src="js/animation.js"></script>
 	<script src="js/lock_unlock.js"></script>
 	<script src="js/charging_interface.js"></script>
 	<script src="js/main.js"></script>
+
+	<!-- jQuery -->
+	<script src="/openWB/web/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 		<?php include ("../web/display/simple/gaugevalues.php"); ?>
