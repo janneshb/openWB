@@ -363,6 +363,8 @@ function processGlobalMessages(mqttmsg, mqttpayload) {
         $(".priorityEvBatteryIcon").addClass("hide"); // visibility of priority icon
         $(".chargeMode").addClass("hide"); // modal chargepoint config
         $(".chargeModeSofort").removeClass("hide"); // modal chargepoint config
+        $("#chargeModeRadioBtnMin").prop('checked', false);
+        $("#chargeModeRadioBtnSofort").prop('checked', true);
         break;
       case "1":
         // mode min+pv
@@ -372,6 +374,8 @@ function processGlobalMessages(mqttmsg, mqttpayload) {
         $(".priorityEvBatteryIcon").addClass("hide");
         $(".chargeMode").addClass("hide"); // modal chargepoint config
         $(".chargeModeMinPv").removeClass("hide"); // modal chargepoint config
+        $("#chargeModeRadioBtnMin").prop('checked', true);
+        $("#chargeModeRadioBtnSofort").prop('checked', false);
         break;
       case "2":
         // mode pv
@@ -868,9 +872,13 @@ function processLpMessages(mqttmsg, mqttpayload) {
     var parent = $('[data-lp="' + index + '"]'); // get parent row element for charge point
     var element = parent.find(".enableLp"); // now get parents respective child element
     if (mqttpayload == 0) {
+      // charging disabled
       element.addClass("lpDisabledStyle");
+      showNotChargingInterface();
     } else {
+      // charging enabled
       element.removeClass("lpDisabledStyle");
+      showChargingInterface();
     }
   } else if (mqttmsg.match(/^openwb\/lp\/[1-9][0-9]*\/countphasesinuse/i)) {
     var index = getIndex(mqttmsg); // extract number between two / /

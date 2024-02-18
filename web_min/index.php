@@ -44,7 +44,7 @@
 			include 'main.html';
 			?>
 			</div>
-			<footer>
+			<footer class="hidden">
 				<p class="settings" style="visibility: hidden;"><a href="/openWB/web_min/settings.php"><i class="fa fa-cog"></i>&nbsp;Einstellungen</a></p>
 				<p class="footer_title"><?php echo $wallboxname; ?></p>
 				<p class="switch_to_pro"><a href="/openWB/web/display/display.php?force_classic_ui=true">Henze-Modus&nbsp;<i class="fa fa-angle-right"></i></a></p>

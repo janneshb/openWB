@@ -107,6 +107,19 @@ a:hover {
 	transition: border 0.8s linear, box-shadow 0.8s linear;
 }
 
+.rotating {
+	animation: spinner-rotation 1.2s linear infinite;
+}
+
+@keyframes spinner-rotation {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
 .no_background {
 	background-color: transparent;
 	border-color: transparent;
@@ -119,6 +132,10 @@ a:hover {
 
 .inline {
 	display: inline;
+}
+
+.inline-block {
+	display: inline-block;
 }
 
 /* PIN CODE */
@@ -264,30 +281,16 @@ textarea:focus {
 
 /* LOADING ANIMATION */
 .loading-dots {
-	text-align: center;
-	z-index: 5;
-
-	.dot {
-		display: inline;
-		margin-left: 0.2em;
-		margin-right: 0.2em;
-		position: relative;
-		top: -0.5em;
-		font-size: 3.5em;
-		opacity: 0;
-		animation: showHideDot 2.5s ease-in-out infinite;
-
-		&.one { animation-delay: 0.2s; }
-		&.two { animation-delay: 0.4s; }
-		&.three { animation-delay: 0.6s; }
-	}
+	width:120px;
+	height:20px;
+	-webkit-mask:linear-gradient(90deg,var(--background-color-openWB) 70%,var(--background-color-openWB) 0) left/20% 100%;
+	background:
+	linear-gradient(var(--background-color-openWB) 0 0) left -25% top 0 /20% 100% no-repeat
+	#ddd;
+	animation:ct7 1s infinite steps(6);
 }
-
-@keyframes showHideDot {
-	0% { opacity: 0; }
-	50% { opacity: 1; }
-	60% { opacity: 1; }
-	100% { opacity: 0; }
+@keyframes ct7 {
+	100% {background-position: right -25% top 0}
 }
 
 /* FOOTER */

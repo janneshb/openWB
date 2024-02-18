@@ -1,38 +1,27 @@
-<script>
-    $('#start_charging_button').on("click", function(event){
-        var lp = 1; // charging point 1 by default
-        publish("1", "openWB/set/lp/" + lp + "/ChargePointEnabled");
-    });
-
-    $('#stop_charging_button').on("click", function(event){
-        var lp = 1; // charging point 1 by default
-        publish("0", "openWB/set/lp/" + lp + "/ChargePointEnabled");
-    });
-    
-    $('.chargeModeRadioBtn').on("click", function(event){
-        if( displaylocked == false ){
-            var chargeMode = $(this).attr("data-chargeMode");
-            publish(chargeMode, "openWB/set/ChargeMode");
-        }
-    });
-</script>
-
-<button class="big_button big_button_relative glowing hidden" id="stop_charging_button" style="opacity: 0" onclick="stopCharging(this);">
+<button class="big_button big_button_relative glowing hidden" id="stop_charging_button" style="opacity: 0;" onclick="stopCharging();">
     <i class="fa fa-pause"></i>
 </button>
 
-<button class="big_button big_button_relative glowing" id="start_charging_button" onclick="startCharging(this);">
+<button class="big_button big_button_relative rotating hidden" id="loading_charging_button" style="opacity: 0;" disabled>
+    <i class="fa fa-spinner"></i>
+</button>
+
+<button class="big_button big_button_relative glowing hidden" id="start_charging_button" onclick="startCharging();">
     <i class="fa fa-bolt"></i>
 </button>
-<div class="loading-dots inline hidden" id="charging_dots"><h1 class="dot one">.</h1><h1 class="dot two">.</h1><h1 class="dot three">.</h1></div>
+
+<button class="big_button big_button_relative no_background hidden inline" id="the_bolt" style="opacity: 0;" disabled>
+    <i class="fa fa-bolt"></i>
+</button>
+<div class="loading-dots inline-block hidden" id="charging_dots"></div>
 <button class="big_button big_button_relative no_background hidden inline" id="the_car" style="opacity: 0;" disabled>
     <i class="fa fa-car"></i>
 </button>
 
-<div class="container centered" id="charging_speed_container">
+<div class="container centered hidden" id="charging_speed_container">
     <div class="radio_container">
         <label for="solar"><i class="fa fa-sun"></i></label>
-        <input type="radio" checked="checked" name="charging_speed" value="solar" class="chargeModeRadioBtn" data-chargeMode="0">
+        <input type="radio" checked="checked" name="charging_speed" value="solar" class="chargeModeRadioBtn" id="chargeModeRadioBtnMin" data-chargeMode="0">
         <span>min + PV</span>
     </div>
     <!--<div class="radio_container">
@@ -42,7 +31,7 @@
     </div>-->
     <div class="radio_container">
         <label for="fast"><i class="fa fa-running"></i></label>
-        <input type="radio" name="charging_speed" value="fast" class="chargeModeRadioBtn" data-chargeMode="1">
+        <input type="radio" name="charging_speed" value="fast" class="chargeModeRadioBtn" id="chargeModeRadioBtnSofort" data-chargeMode="1">
         <span>Sofort</span>
     </div>
 </div>
@@ -67,5 +56,13 @@
             script.async = false;
             document.body.appendChild(script);
         });
+
+        $('input[type=radio][name=charging_speed]').change(function() {
+            var chargeMode = $(this).attr("data-chargeMode");
+            console.log("charge mode changed to " + chargeMode);
+            setChargeMode(chargeMode);
+        });
+
+        clearInterface();
     });
 </script>
