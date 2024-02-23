@@ -63,7 +63,7 @@ function startCharging() {
 
 
 	setTimeout(() => {
-		clearInterface();
+		disableLoadingUI();
 		showNotChargingInterface();
 	}, 5000);
 }
