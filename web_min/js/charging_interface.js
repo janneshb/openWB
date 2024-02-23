@@ -49,6 +49,7 @@ function clearInterface() {
 function startCharging() {
 	console.log("start charging...");
 	clearInterface();
+	disableLoadingUI();
 	setTimeout(() => {
 		enableLoadingUI();
 	}, 700);
@@ -69,8 +70,8 @@ function startCharging() {
 
 function showChargingInterface() {
 	console.log("show charging interface");
+	clearInterface();
 	disableLoadingUI();
-
 	setTimeout(() => {
 		const bolt_icon = document.getElementById("the_bolt");
 		fadeIn(bolt_icon);
@@ -101,7 +102,6 @@ function showChargingInterface() {
 /* STOP CHARGING */
 function stopCharging() {
 	console.log("stop charging...");
-	clearInterface();
 	setTimeout(() => {
 		enableLoadingUI();
 	}, 700);
@@ -120,6 +120,7 @@ function stopCharging() {
 
 function showNotChargingInterface() {
 	console.log("show not-charging interface");
+	clearInterface();
 	const startChargingBtn = document.getElementById("start_charging_button");
 	fadeIn(startChargingBtn);
 
