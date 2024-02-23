@@ -30,22 +30,6 @@ function reloadDisplay() {
     }, 2000);
 }
 
-function getCol(matrix, col){
-	var column = [];
-	for(var i=0; i<matrix.length; i++){
-		column.push(matrix[i][col]);
-	}
-	return column;
-}
-
-function convertToKw(dataColum) {
-	var convertedDataColumn = [];
-	dataColum.forEach((value) => {
-		convertedDataColumn.push(value / 1000);
-	});
-	return convertedDataColumn;
-}
-
 function getIndex(topic) {
 	// get occurrence of numbers between / / in topic
 	// since this is supposed to be the index like in openwb/lp/4/w
@@ -72,45 +56,12 @@ function handlevar(mqttmsg, mqttpayload) {
 }  // end handlevar
 
 function processDisplayConfigMessages(mqttmsg, mqttpayload) {
-	//console.log("Msg: "+mqttmsg+": "+mqttpayload);
-	if ( mqttmsg == 'openWB/config/get/display/showHouseConsumption' ) {
-		switch (mqttpayload) {
-			case '0':
-				// hide house consumption
-				$('.hausverbrauch').addClass('hide');
-				break;
-			case '1':
-				// show house consumption
-				$('.hausverbrauch').removeClass('hide');
-				break;
-		}
-	}
-	else if ( mqttmsg == 'openWB/config/get/display/chartHouseConsumptionMax' ) {
-		var chartElement = $('.sparkline[data-chartname=hausverbrauchlchart]');
-		chartElement.attr('data-sparkChartRangeMax', mqttpayload);
-	}
-	else if ( mqttmsg == 'openWB/config/get/display/chartEvuMinMax' ) {
-		var chartElement = $('.sparkline[data-chartname=evulchart]');
-		chartElement.attr('data-sparkChartRangeMax', mqttpayload);
-		chartElement.attr('data-sparkChartRangeMin', mqttpayload*-1);
-	}
-	else if ( mqttmsg == 'openWB/config/get/display/chartBatteryMinMax' ) {
-		var chartElement = $('.sparkline[data-chartname=hausbatteriellchart]');
-		chartElement.attr('data-sparkChartRangeMax', mqttpayload);
-		chartElement.attr('data-sparkChartRangeMin', mqttpayload*-1);
-	}
-	else if ( mqttmsg == 'openWB/config/get/display/chartPvMax' ) {
-		var chartElement = $('.sparkline[data-chartname=pvlchart]');
-		chartElement.attr('data-sparkChartRangeMax', mqttpayload);
-	}
-	else if ( mqttmsg.match( /^openwb\/config\/get\/display\/chartLp\/[1-9][0-9]*\/max$/i ) ) {
-		var index = getIndex(mqttmsg);  // extract number between two / /
-		var chartElement = $('.sparkline[data-chartname=ladepunkt'+index+'llchart]');
-		chartElement.attr('data-sparkChartRangeMax', mqttpayload);
-	}
+	console.log("processDisplayConfigMessages not implemented for minimal interface (" + mqttmsg + "; " + mqttpayload + ")");
 }
 
 function processPvConfigMessages(mqttmsg, mqttpayload) {
+	console.log("processPvConfigMessages not implemented for minimal interface (" + mqttmsg + "; " + mqttpayload + ")");
+	/*
 	if ( mqttmsg == 'openWB/config/get/pv/priorityModeEVBattery' ) {
 		// sets button color in charge mode modal and sets icon in mode select button
 		switch (mqttpayload) {
@@ -144,11 +95,12 @@ function processPvConfigMessages(mqttmsg, mqttpayload) {
 	else if ( mqttmsg == 'openWB/config/get/pv/minCurrentMinPv' ) {
 		setInputValue('minCurrentMinPv', mqttpayload);
 	}
+	*/
 }
 
 function processSofortConfigMessages(mqttmsg, mqttpayload) {
-	// processes mqttmsg for topic openWB/config/get/sofort/
-	// called by handlevar
+	console.log("processSofortConfigMessages not yet implemented (" + mqttmsg + "; " + mqttpayload + ")");
+	/*
 	var elementId = mqttmsg.replace('openWB/config/get/sofort/', '');
 	var element = $('#' + $.escapeSelector(elementId));
 	if ( element.attr('type') == 'range' ) {
@@ -156,55 +108,16 @@ function processSofortConfigMessages(mqttmsg, mqttpayload) {
 	} else if ( element.hasClass('btn-group-toggle') ) {
 		setToggleBtnGroup(elementId, mqttpayload);
 	}
-
+	*/
 }
 
 function processEvuMessages(mqttmsg, mqttpayload) {
-	// processes mqttmsg for topic openWB/evu
-	// called by handlevar
-	if ( mqttmsg == 'openWB/evu/W' ) {
-		var prefix = '';
-		var unit = ' W';
-		var powerEvu = parseInt(mqttpayload, 10);
-		if ( isNaN(powerEvu) ) {
-			powerEvu = 0;
-		}
-		// now use a temp value to keep original value with sign for sparkline
-		var powerEvuValue = powerEvu;
-		if ( powerEvuValue > 0 ) {
-			prefix = ' Imp: ';
-		} else if( powerEvuValue < 0 ) {
-			powerEvuValue *= -1;
-			prefix = ' Exp: ';
-		}
-		var powerEvuText = powerEvuValue.toString();
-		if ( powerEvuValue >= 1000 ) {
-			powerEvuText = (powerEvuValue / 1000).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-			unit = ' kW';
-		}
-		var element = $('#evul');
-		var elementChart = $('#evulchart');
-		updateDashboardElement(element, elementChart, prefix + powerEvuText + unit, powerEvu);
-	 }
+	console.log("processEvuMessages not implemented for minimal interface");
 }
 
 function processGlobalMessages(mqttmsg, mqttpayload) {
-	// processes mqttmsg for topic openWB/global
-	// called by handlevar
 	if ( mqttmsg == 'openWB/global/WHouseConsumption' ) {
-		var unit = ' W';
-		var powerHouse = parseInt(mqttpayload, 10);
-		if ( isNaN(powerHouse) || (powerHouse < 0) ) {
-			powerHouse = 0;
-		}
-		powerHouseText = powerHouse.toString();
-		if ( powerHouse > 999 ) {
-			powerHouseText = (powerHouse / 1000).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-			unit = ' kW';
-		}
-		var element = $('#hausverbrauchl');
-		var elementChart = $('#hausverbrauchlchart');
-		updateDashboardElement(element, elementChart, powerHouseText + unit, powerHouse);
+		console.log("openWB/global/WHouseConsumption not implemented for minimal interface");
 	}
 	else if ( mqttmsg == 'openWB/global/WAllChargePoints') {
 		var unit = ' W';
@@ -222,70 +135,25 @@ function processGlobalMessages(mqttmsg, mqttpayload) {
 		updateDashboardElement(element, elementChart, powerAllLpText + unit, powerAllLp);
 	}
 	else if ( mqttmsg == 'openWB/global/strLastmanagementActive' ) {
-		if ( mqttpayload.length >= 5 ) {
-			// if there is info-text in payload for topic, show the text
-			$('#lastregelungaktiv').text(mqttpayload);
-			$('#lastmanagementShowBtn').removeClass('hide');
-		} else {
-			// if there is no text, show nothing (hides row)
-			$('#lastregelungaktiv').text('');
-			$('#lastmanagementShowBtn').addClass('hide');
-		}
+		console.log("openWB/global/strLastmanagementActive not implemented for minimal interface");
 	}
 	else if ( mqttmsg == 'openWB/global/ChargeMode' ) {
-		// set modal button colors depending on charge mode
-		// set visibility of divs
-		// set visibility of priority icon depending on charge mode
-		// (priority icon is encapsulated in another element hidden/shown by house battery configured or not)
+		// set radio buttons depending on charge mode
 		switch (mqttpayload) {
 			case '0':
 				// mode sofort
-				$('.chargeModeSelectBtnText').text('Sofort');  // text btn main page
-				$('.chargeModeBtn').removeClass('btn-success');  // changes to select buttons in modal
-				$('.chargeModeBtnSofort').addClass('btn-success');
-				$('.priorityEvBatteryIcon').addClass('hide');  // visibility of priority icon
-				$('.chargeMode').addClass('hide'); // modal chargepoint config
-				$('.chargeModeSofort').removeClass('hide'); // modal chargepoint config
+				console.log("ChargeMode switched to SOFORT");
+				setChargeModeInterface("0");
 				break;
-			case '1':
-				// mode min+pv
-				$('.chargeModeSelectBtnText').text('Min+PV');
-				$('.chargeModeBtn').removeClass('btn-success');
-				$('.chargeModeBtnMinPV').addClass('btn-success');
-				$('.priorityEvBatteryIcon').addClass('hide');
-				$('.chargeMode').addClass('hide'); // modal chargepoint config
-				$('.chargeModeMinPv').removeClass('hide'); // modal chargepoint config
-				break;
-			case '2':
-				// mode pv
-				$('.chargeModeSelectBtnText').text('PV');
-				$('.chargeModeBtn').removeClass('btn-success');
-				$('.chargeModeBtnPV').addClass('btn-success');
-				$('.priorityEvBatteryIcon').removeClass('hide');
-				$('.chargeMode').addClass('hide'); // modal chargepoint config
-				$('.chargeModePv').removeClass('hide'); // modal chargepoint config
-				break;
-			case '3':
-				// mode stop
-				$('.chargeModeSelectBtnText').text('Stop');
-				$('.chargeModeBtn').removeClass('btn-success');
-				$('.chargeModeBtnStop').addClass('btn-success');
-				$('.priorityEvBatteryIcon').addClass('hide');
-				$('.chargeMode').addClass('hide'); // modal chargepoint config
-				$('.chargeModeStop').removeClass('hide'); // modal chargepoint config
-				break;
-			case '4':
-				// mode standby
-				$('.chargeModeSelectBtnText').text('Standby');
-				$('.chargeModeBtn').removeClass('btn-success');
-				$('.chargeModeBtnStandby').addClass('btn-success');
-				$('.priorityEvBatteryIcon').addClass('hide');
-				$('.chargeMode').addClass('hide'); // modal chargepoint config
-				$('.chargeModeStandby').removeClass('hide'); // modal chargepoint config
-				break;
+			default:
+				// mode min + pv
+				setChargeModeInterface("1");
+				console.log("ChargeMode defaulting to Min+PV");
 		}
 	}
 	else if ( mqttmsg == 'openWB/global/rfidConfigured' ) {
+		console.log("RFID not configured in minimal interface")
+		/*
 		if ( mqttpayload == '0' ) {
 			// disable manuel Rfid Code
 			$('#rfidCodeBtn').addClass('hide');
@@ -293,167 +161,27 @@ function processGlobalMessages(mqttmsg, mqttpayload) {
 			// enable manuel Rfid Code
 			$('#rfidCodeBtn').removeClass('hide');
 		}
+		*/
 	}
 }
 
 function processHousebatteryMessages(mqttmsg, mqttpayload) {
 	// processes mqttmsg for topic openWB/housebattery
 	// called by handlevar
-	if ( mqttmsg == 'openWB/housebattery/W' ) {
-		var prefix = '';
-		var unit = ' W';
-		var speicherwatt = parseInt(mqttpayload, 10);
-		if ( isNaN(speicherwatt) ) {
-			speicherwatt = 0;
-		}
-		// now use a temp value to keep original value with sign for sparkline
-		var speicherwattValue = speicherwatt;
-		if ( speicherwattValue > 0 ) {
-			prefix = 'Ladung: ';
-		} else if ( speicherwattValue < 0 ) {
-			speicherwattValue *= -1;
-			prefix = 'Entladung: ';
-		}
-		var speicherwattText = speicherwattValue.toString();
-		if ( speicherwattValue > 999 ) {
-			speicherwattText = (speicherwatt / 1000).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-			unit = ' kW';
-		}
-		var element = $('#hausbatteriell');
-		var elementChart = $('#hausbatteriellchart');
-		updateDashboardElement(element, elementChart, prefix + speicherwattText + unit, speicherwatt);
-	}
-	else if ( mqttmsg == 'openWB/housebattery/%Soc' ) {
-		var speicherSoc = parseInt(mqttpayload, 10);
-		var unit = ' %';
-		var speicherSocText = speicherSoc.toString();
-		if ( isNaN(speicherSoc) || speicherSoc < 0 || speicherSoc > 100 ) {
-			speicherSocText = '--';
-		}
-		// adjust value for sparkline
-		if ( isNaN(speicherSoc) || speicherSoc < 0 ) {
-			speicherSoc = 0;
-		}
-		if ( speicherSoc > 100 ) {
-			speicherSoc = 100;
-		}
-		var element = $('#hausbatteriesoc');
-		var elementChart = $('#hausbatteriesocchart');
-		updateDashboardElement(element, elementChart, speicherSocText + unit, speicherSoc);
-	}
-	else if ( mqttmsg == 'openWB/housebattery/boolHouseBatteryConfigured' ) {
-		if ( mqttpayload == 1 ) {
-			// if housebattery is configured, show info-cards
-			$('.hausbatterie').removeClass('hide');
-			// and outer element for priority icon in pv mode
-			$('.priorityEvBattery').removeClass('hide');
-			// priority buttons in modal
-			$('#priorityModeBtns').removeClass('hide');
-			// update sparklines
-			$.sparkline_display_visible();
-		} else {
-			$('.hausbatterie').addClass('hide');
-			$('.priorityEvBattery').addClass('hide');
-			$('#priorityModeBtns').addClass('hide');
-		}
-	}
+	console.log("processHousebatteryMessages not implemented for minimal interface");
 }
 
 function processSystemMessages(mqttmsg, mqttpayload) {
 	// processes mqttmsg for topic openWB/system
 	// called by handlevar
 	// console.log(mqttmsg+': '+mqttpayload);
-	if ( mqttmsg == 'openWB/system/Timestamp') {
-		var dateObject = new Date(mqttpayload * 1000);  // Unix timestamp to date-object
-		var time = '&nbsp;';
-		var date = '&nbsp;';
-		if ( dateObject instanceof Date && !isNaN(dateObject.valueOf()) ) {
-			// timestamp is valid date so process
-			var HH = String(dateObject.getHours()).padStart(2, '0');
-			var MM = String(dateObject.getMinutes()).padStart(2, '0');
-			time = HH + ':'  + MM;
-			var dd = String(dateObject.getDate()).padStart(2, '0');  // format with leading zeros
-			var mm = String(dateObject.getMonth() + 1).padStart(2, '0'); //January is 0 so add +1!
-			var dayOfWeek = dateObject.toLocaleDateString('de-DE', { weekday: 'short'});
-			date = dayOfWeek + ', ' + dd + '.' + mm + '.' + dateObject.getFullYear();
-		}
-		$('#time').text(time);
-		$('#date').text(date);
-	} else if ( mqttmsg == 'openWB/system/IpAddress') {
-		$('.systemIpAddress').text(mqttpayload);
-	} else if ( mqttmsg == 'openWB/system/wizzardDone' ) {
-		if( mqttpayload > 99 ){
-			$("#wizzardModal").modal("hide");
-		} else {
-			$("#wizzardModal").modal("show");
-		}
-	} else if ( mqttmsg == 'openWB/system/reloadDisplay' ) {
-		if( mqttpayload == '1' ){
-			reloadDisplay();
-		}
-	} else if ( mqttmsg == 'openWB/system/Uptime' ) {
-		$('.systemUptime').text(mqttpayload);
-	} else if ( mqttmsg =='openWB/system/Version' ) {
-		$('.systemVersion').text(mqttpayload);
-	}
-
+	console.log("processSystemMessages not implemented for minimal interface");
 }
 
 var pv1 = 0;
 var pv2 = 0;
 function processPvMessages(mqttmsg, mqttpayload) {
-	// processes mqttmsg for topic openWB/pv
-	// called by handlevar
-	if ( mqttmsg == 'openWB/pv/W') {
-		var pvwatt = parseInt(mqttpayload, 10);
-		var unit = ' W';
-		if ( isNaN(pvwatt) ) {
-			pvwatt = 0;
-		}
-		if ( pvwatt > 0){
-			pvwatt = 0;
-		}
-		if ( pvwatt < 0 ) {
-			// production is negative for calculations so adjust for display
-			pvwatt *= -1;
-		}
-		var pvwattText = pvwatt.toString();
-		if (pvwatt > 999) {
-			pvwattText = (pvwatt / 1000).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-			unit = ' kW';
-		}
-		var element = $('#pvl');
-		var elementChart = $('#pvlchart');
-		updateDashboardElement(element, elementChart, pvwattText + unit, pvwatt);
-	}
-	else if ( mqttmsg == 'openWB/pv/bool70PVDynStatus') {
-		switch (mqttpayload) {
-			case '0':
-				// deaktiviert
-				$('#70PvBtn').removeClass('btn-success');
-				break;
-			case '1':
-				// ev priority
-				$('#70PvBtn').addClass('btn-success');
-			break;
-		}
-	}
-	else if ( mqttmsg.match(/^openWB\/pv\/[1-2]+\/boolPVConfigured$/i) ) {
-		if (mqttmsg == 'openWB/pv/1/boolPVConfigured') {
-			pv1 = mqttpayload;
-		} else {
-			pv2 = mqttpayload;
-		}
-
-		if ( (pv1 + pv2) > 0 ) {
-			// if pv is configured, show info-cards
-			$('.pv').removeClass('hide');
-			// update sparklines
-			$.sparkline_display_visible();
-		} else {
-			$('.pv').addClass('hide');
-		}
-	}
+	console.log("processPvMessages not implemented for minimal interface");
 }
 
 function processLpMessages(mqttmsg, mqttpayload) {

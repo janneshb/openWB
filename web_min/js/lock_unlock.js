@@ -82,7 +82,7 @@ function updatePinFocus() {
 
 function clearPin() {
 	console.log("clear PIN");
->	if (focusedInput.value.length == 0) {
+	if (focusedInput.value.length == 0) {
 		updatePinFocus();
 	}
 	focusedInput.value = "";
