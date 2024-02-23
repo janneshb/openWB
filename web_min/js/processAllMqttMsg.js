@@ -177,6 +177,7 @@ function processPvMessages(mqttmsg, mqttpayload) {
 function processLpMessages(mqttmsg, mqttpayload) {
 	// processes mqttmsg for topic openWB/lp
 	// called by handlevar
+	console.log("processLpMessages " + mqttmsg + "; " + mqttpayload);
 	if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/w$/i ) ) {
 		var index = getIndex(mqttmsg);  // extract number between two / /
 		var parent = $('[data-lp="' + index + '"]');  // get parent row element for charge point
