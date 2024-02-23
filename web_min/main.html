@@ -43,11 +43,11 @@
             // load mqtt library
             '/openWB/web/js/mqttws31.js',
             // some helper functions
-            '/openWB/web/display/cards/helperFunctions.js?ver=20210113',
+            // '/openWB/web_min/display/cards/helperFunctions.js?ver=20210113',
             // functions for processing messages
-            '/openWB/web/display/cards/processAllMqttMsg.js?ver=20210301',
+            '/openWB/web_min/js/processAllMqttMsg.js?ver=20210301',
             // functions performing mqtt and start mqtt-service
-            '/openWB/web/display/cards/setupMqttServices.js?ver=20210301',
+            '/openWB/web_min/js/setupMqttServices.js?ver=20210301',
         ];
 
         scriptsToLoad.forEach(function(src) {
@@ -63,6 +63,6 @@
             setChargeMode(chargeMode);
         });
 
-        clearInterface();
+        initMinimalInterface();
     });
 </script>

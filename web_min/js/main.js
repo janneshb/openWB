@@ -11,3 +11,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	}
 });
+
+function initMinimalInterface() {
+	console.log("init min interface");
+	showNotChargingInterface();
+}
+

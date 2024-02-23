@@ -1,16 +1,25 @@
+/**
+ * Functions to update the minimal Charging Interface
+ * 
+ * @author Jannes Hühnerbein
+ */
+
 /* LOADING ... */
 function enableLoadingUI() {
+	console.log("enable loading UI");
 	var btn = document.getElementById("loading_charging_button");
 	fadeIn(btn);
 }
 
 function disableLoadingUI() {
+	console.log("disable loading UI");
 	var btn = document.getElementById("loading_charging_button");
 	fadeOut(btn);
 }
 
 /* CLEAR INTERFACE */
 function clearInterface() {
+	console.log("clear interface");
 	const startChargingBtn = document.getElementById("start_charging_button");
 	fadeOut(startChargingBtn);
 
@@ -43,7 +52,7 @@ function startCharging() {
 
 	var lp = 1; // charging point 1 by default
 	publish("1", "openWB/set/lp/" + lp + "/ChargePointEnabled");
-	
+
 	setTimeout(() => {
 		disableLoadingUI();
 	}, 700);
@@ -54,6 +63,7 @@ function startCharging() {
 }
 
 function showChargingInterface() {
+	console.log("show charging interface");
 	setTimeout(() => {
 		const bolt_icon = document.getElementById("the_bolt");
 		fadeIn(bolt_icon);
@@ -63,7 +73,7 @@ function showChargingInterface() {
 		const car_icon = document.getElementById("the_car");
 		fadeIn(car_icon);
 	}, 700);
-	
+
 	setTimeout(() => {
 		const charging_dots = document.getElementById("charging_dots");
 		fadeIn(charging_dots);
@@ -86,7 +96,7 @@ function stopCharging() {
 
 	var lp = 1; // charging point 1 by default
 	publish("0", "openWB/set/lp/" + lp + "/ChargePointEnabled");
-	
+
 	setTimeout(() => {
 		disableLoadingUI();
 	}, 700);
@@ -97,9 +107,10 @@ function stopCharging() {
 }
 
 function showNotChargingInterface() {
+	console.log("show not-charging interface");
 	const startChargingBtn = document.getElementById("start_charging_button");
 	fadeIn(startChargingBtn);
-	
+
 	const chargingSpeedContainer = document.getElementById("charging_speed_container");
 	fadeIn(chargingSpeedContainer);
 
@@ -107,7 +118,23 @@ function showNotChargingInterface() {
 	fadeIn(footer);
 }
 
+function setChargeModeInterface(charge_mode) {
+	console.log("set charging mode for interface");
+	switch(charge_mode) {
+		case "0":
+			// mode sofort
+			$("#chargeModeRadioBtnMin").prop('checked', false);
+			$("#chargeModeRadioBtnSofort").prop('checked', true);
+			break;
+		default:
+			// mode min + pv
+			$("#chargeModeRadioBtnMin").prop('checked', true);
+			$("#chargeModeRadioBtnSofort").prop('checked', false);
+	}
+}
+
 function setChargeMode(chargeMode) {
 	console.log("set charge mode " + chargeMode);
 	publish(chargeMode, "openWB/set/ChargeMode");
 }
+
