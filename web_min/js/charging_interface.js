@@ -138,3 +138,11 @@ function setChargeMode(chargeMode) {
 	publish(chargeMode, "openWB/set/ChargeMode");
 }
 
+/* POWER AND kWh SINCE CHARGING */
+function setPower(kW_text, unit) {
+	console.log("Charging at " + kW_text + " " + unit);
+}
+
+function setEnergy(kWh_text, unit) {
+	console.log("Charged " + kWh_text + " " + unit);
+}

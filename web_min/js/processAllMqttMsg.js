@@ -187,13 +187,18 @@ function processLpMessages(mqttmsg, mqttpayload) {
 		if ( isNaN(actualPower) ) {
 			actualPower = 0;
 		}
+
+		// disable charging point if not charging
+		if (actualPower == 0) {
+			publish("0", "openWB/set/lp/" + index + "/ChargePointEnabled");
+		}
+
 		var actualPowerText = actualPower.toString();
 		if (actualPower > 999) {
 			actualPowerText = (actualPower / 1000).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 			unit = ' kW';
 		}
-		var elementChart = parent.find('.ladepunktllchart');
-		// updateDashboardElement(element, elementChart, actualPowerText + unit, actualPower);
+		setPower(actualPowerText, unit)
 	}
 	else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/kWhchargedsinceplugged$/i ) ) {
 		// energy charged since ev was plugged in
@@ -216,6 +221,7 @@ function processLpMessages(mqttmsg, mqttpayload) {
 			kmCharged = '-- km';
 		}
 		$(kmChargedLp).text(kmCharged);
+		setEnergyCharged(energyCharged, unit);
 	}
 	else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/kWhactualcharged$/i ) ) { // TODO!
 		// energy charged since reset of limitation
