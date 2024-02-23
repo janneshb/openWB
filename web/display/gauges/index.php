@@ -586,7 +586,7 @@
 				<div id="backend" class="row col-xs-12 text-left" style="font-size: 22px; height: 100px; top: 250px; left: 50px; position: absolute; width: 750px; color: white; text-align:left;"> 
 					Backend: <span class="connectionState">-</span><br>
 					Verbindungsversuche: <span class="counter">-</span><br>
-					<button class="btn btn-block btn-red reloadBtn" type="button">Display neu Laden</button>
+					<button class="btn btn-block btn-red reloadBtn" type="button">Display neu Laden / Henze-Modus verlassen</button>
 				</div>
 				<script>
 					function updateit() {
@@ -613,7 +613,8 @@
 					});
 
 					$('#backend .reloadBtn').click(function() {
-						location.reload();
+						window.location = window.location.href.split("?")[0];
+						// location.reload();
 					});
 				</script>
 			</div>

@@ -68,6 +68,12 @@
 		</script>
 
 		<?php
+			$conf_dir =  $_SERVER["DOCUMENT_ROOT"] . '/openWB';
+			$conf_file = $conf_dir . '/openwb.conf';
+			if (!is_dir($conf_dir) or !is_writable($conf_dir)) die('Fehler: Verzeichnis ' . $conf_dir . ' nicht gefunden oder keine Berechtigung.');
+			elseif (!is_file($conf_file)) die('Fehler: Konfigurationsdatei ' . $conf_file . ' existiert nicht.');
+			elseif (is_file($conf_file) and !is_writable($conf_file)) die('Fehler: Keine Schreibrechte für Konfigurationsdatei ' . $conf_file);
+
 			$result = '';
 			$lines = file($_SERVER["DOCUMENT_ROOT"].'/openWB/openwb.conf');
 			foreach($lines as $line) {
@@ -88,7 +94,8 @@
 			}
 
 			flush();
-			file_put_contents('/var/www/html/openWB/openwb.conf', $result);
+			$conf_written = file_put_contents($conf_file, $result);
+			if ($conf_written == false) die('Fehler: Einstellungen konnten nicht gespeichert werden.');
 			sleep(5);
 
 			if ($_POST['dataProtectionAcknoledged'] != 1) {

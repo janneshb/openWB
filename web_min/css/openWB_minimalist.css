@@ -1,0 +1,329 @@
+:root {
+	--background-color-openWB: #22092C;
+	--text-color-openWB: #FFFFFF;
+	--primary-color-openWB: #872341;
+	--secondary-color-openWB: #BE3144;
+	--tertiary-color-openWB: #F05941;
+
+	--button-size: 35vh;
+	--button-caption-size: 40pt;
+
+	--radio-spacing: 50px;
+
+	--pin-field-size: 50vh;
+
+	/* Overwrite Pico Style */
+	--background-color: var(--background-color-openWB) !important;
+	--color: var(--text-color-openWB) !important;
+	--h1-color: var(--text-color-openWB) !important;
+	--h2-color: var(--text-color-openWB) !important;
+	--h3-color: var(--text-color-openWB) !important;
+	--h4-color: var(--text-color-openWB) !important;
+	--h5-color: var(--text-color-openWB) !important;
+	--h6-color: var(--text-color-openWB) !important;
+	--primary: var(--primary-color-openWB) !important;
+	--primary-inverse: var(--text-color-openWB) !important;
+}
+
+html, body {
+	/* make everything static, no scrolling */
+	width: 100%;
+	height: 100vh;
+	padding: 0px;
+	overflow: hidden;
+	margin: 0;
+}
+
+body {
+	color: var(--text-color-openWB) !important;
+	background-color: var(--background-color-openWB) !important;
+}
+
+a {
+	color: var(--primary-color-openWB);
+	text-decoration: none;
+}
+
+a:hover {
+	color: var(--primary-color-openWB);
+	text-decoration: none;
+}
+
+.container {
+	padding: 5%;
+	width: 100%;
+	position: relative;
+	text-align: center;
+}
+
+.inner_container {
+	margin: 0;
+	padding: 5%;
+	width: 100%;
+}
+
+/* BIG BUTTONS */
+.big_button {
+	width: var(--button-size);
+	height: var(--button-size);
+	font-size: var(--button-caption-size);
+	background-color: var(--primary-color-openWB);
+	border-color: var(--secondary-color-openWB);
+	border-width: calc(var(--button-caption-size) / 3);
+	border-radius: 50%;
+	transition: .05s;
+}
+
+.big_button:disabled, .big_button[disabled] {
+	color: var(--text-color-openWB);
+	opacity: 1;
+}
+
+.big_button_abolute {
+	position: absolute;
+	top: 50vh;
+  	left: 50vw;
+	transform: translate(-50%, -50%);
+}
+
+.big_button_relative {
+	position: relative;
+	margin: auto;
+}
+
+@-webkit-keyframes glow {
+    to {
+		border-color: var(--tertiary-color-openWB);
+		-webkit-box-shadow: 0 0 5px var(--tertiary-color-openWB);
+		-moz-box-shadow: 0 0 5px var(--tertiary-color-openWB);
+		box-shadow: 0 0 5px var(--tertiary-color-openWB);
+	}
+}
+
+.glowing {
+	-webkit-animation: glow 0.8s infinite alternate;
+	-webkit-transition: border 0.8s linear, box-shadow 0.8s linear;
+	-moz-transition: border 0.8s linear, box-shadow 0.8s linear;
+	transition: border 0.8s linear, box-shadow 0.8s linear;
+}
+
+.rotating {
+	animation: spinner-rotation 1.2s linear infinite;
+}
+
+@keyframes spinner-rotation {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.no_background {
+	background-color: transparent;
+	border-color: transparent;
+}
+
+.hidden {
+	display: none !important;
+	opacity: 0;
+}
+
+.inline {
+	display: inline;
+}
+
+.inline-block {
+	display: inline-block;
+}
+
+/* PIN CODE */
+.pin_container {
+	position: absolute;
+	top: 35vh;
+  	left: 50vw;
+	transform: translate(-50%, -50%);
+
+	background-color: var(--background-color-openWB);
+	
+	width: var(--pin-field-size);
+	height: var(--pin-field-size);
+}
+
+input[type="password"] {
+	--border-width: 3px;
+
+    padding: 0px;
+    border: var(--border-width) solid var(--secondary-color-openWB);
+    width: calc(var(--pin-field-size) / 4 - 2 * var(--border-width) - 0.05px);
+    height: calc(var(--pin-field-size) / 4 - 2 * var(--border-width));
+
+    text-align: center;
+    font-size: 50px;
+	line-height: calc(var(--pin-field-size) / 4 - 2 * var(--border-width));
+	background-color: var(--background-color-openWB);
+}
+
+input:focus {
+	outline: none !important;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+textarea:focus {
+    outline: none !important;
+	-webkit-appearance: none !important;
+	border-color: var(--tertiary-color-openWB);
+	caret-color: transparent;
+}
+
+.pin_btn {
+	--border-width: 3px;
+
+	display: inline;
+	padding: 0;
+	margin: 0;
+	margin-bottom: 3px;
+
+    width: calc(var(--pin-field-size) / 3 - (2 * var(--border-width)));
+    height: calc(var(--pin-field-size) / 3 - (2 * var(--border-width)));
+    line-height: calc(var(--pin-field-size) / 3 - (2 * var(--border-width)));
+
+	border: var(--border-width) solid var(--secondary-color-openWB);
+	border-radius: 50%;
+
+    text-align: center;
+    font-size: calc(var(--button-caption-size) / 2);
+	line-height: calc(var(--pin-field-size) / 3  - 2 * var(--border-width) - 20px);
+	line-height: 0;
+	background-color: var(--background-color-openWB);
+
+	vertical-align: middle;
+}
+
+.pin_btn:focus {
+	outline: none;
+}
+
+.pin_text {
+	--border-width: 7px;
+
+	margin-top: 5px;
+	width: calc(var(--pin-field-size) - 2*var(--border-width));
+
+	text-align: center;
+	padding: 5px;
+
+	border: var(--border-width) solid var(--tertiary-color-openWB);
+	border-radius: 5px;
+}
+
+/* GENERAL */
+.borderless {
+	border: 0;
+}
+
+.bordered {
+	--border-width: 10px;
+	border: var(--border-width) solid var(--secondary-color-openWB);
+	border-radius: 10px;
+}
+
+.centered {
+	text-align: center;
+}
+
+/* RADIO BUTTONS */
+.radio_container {
+	display: inline-block;
+	text-align: center;
+	min-width: var(--radio-spacing);
+	padding: 0;
+}
+
+.radio_container:first-child {
+	margin-right: var(--radio-spacing);
+}
+
+.radio_container:last-child {
+	margin-left: var(--radio-spacing);
+}
+
+.radio_container > label {
+	padding: 0;
+	margin: 0;
+	margin-bottom: 15px;
+	font-size: calc(var(--button-caption-size) / 2);
+}
+
+.radio_container > input[type=radio] {
+	margin: 0;
+	margin-bottom: 15px;
+    border: 5px var(--primary) solid;
+    width: calc(var(--button-caption-size) / 1.5);
+    height: calc(var(--button-caption-size) / 1.5);
+}
+
+.radio_container > input[type='radio']:checked {
+    border: 10px var(--primary) solid;
+	background: var(--tertiary-color-openWB);
+}
+
+.radio_container > span {
+	display: block;
+}
+
+/* LOADING ANIMATION */
+.loading-dots {
+	width:120px;
+	height:20px;
+	-webkit-mask:linear-gradient(90deg,var(--background-color-openWB) 70%,var(--background-color-openWB) 0) left/20% 100%;
+	background:
+	linear-gradient(var(--background-color-openWB) 0 0) left -25% top 0 /20% 100% no-repeat
+	#ddd;
+	animation:ct7 1s infinite steps(6);
+}
+@keyframes ct7 {
+	100% {background-position: right -25% top 0}
+}
+
+/* FOOTER */
+footer {
+	height: 50px;
+	bottom: 0;
+	position: fixed;
+	padding: 0 !important;
+	padding-left: 25px !important;
+	padding-right: 25px !important;
+}
+
+.settings {
+	display: inline-block;
+	width: 33%;
+	float: left;
+	text-align: left;
+}
+
+.footer_title {
+	display: inline-block;
+	width: 33%;
+	text-align:center;
+}
+
+.switch_to_pro {
+	/*
+	position: absolute;
+	right: 50px;
+	bottom: 5px;
+	*/
+	display: inline-block;
+	width: 33%;
+	float: right;
+	text-align: right;
+}
