@@ -62,11 +62,13 @@ function startCharging() {
 	// If in this time, no message for the current charging power has been published,
 	// return to "not charging"
 	setTimeout(() => {
-		clearInterface();
-		disableLoadingUI();
-		setTimeout(() => {
-			showNotChargingInterface();
-		}, 700);
+		if (!charging) {
+			clearInterface();
+			disableLoadingUI();
+			setTimeout(() => {
+				showNotChargingInterface();
+			}, 700);
+		}
 	}, 5000);
 }
 

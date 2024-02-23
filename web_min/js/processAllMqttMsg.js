@@ -6,6 +6,8 @@
  * @author Lutz Bender
  * @author Jannes Hühnerbein
  */
+var charging = false;
+
 function reloadDisplay() {
     /** @function reloadDisplay
      * triggers a reload of the current page
@@ -110,19 +112,7 @@ function processGlobalMessages(mqttmsg, mqttpayload) {
 		console.log("openWB/global/WHouseConsumption not implemented for minimal interface");
 	}
 	else if ( mqttmsg == 'openWB/global/WAllChargePoints') {
-		var unit = ' W';
-		var powerAllLp = parseInt(mqttpayload, 10);
-		if ( isNaN(powerAllLp) ) {
-			powerAllLp = 0;
-		}
-		powerAllLpText = powerAllLp.toString();
-		if (powerAllLp > 999) {
-			powerAllLpText = (powerAllLp / 1000).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-			unit = ' kW';
-		}
-		var element = $('#gesamtll');
-		var elementChart = $('#gesamtllchart');
-		// updateDashboardElement(element, elementChart, powerAllLpText + unit, powerAllLp);
+		// not implemented
 	}
 	else if ( mqttmsg == 'openWB/global/strLastmanagementActive' ) {
 		console.log("openWB/global/strLastmanagementActive not implemented for minimal interface");
@@ -192,15 +182,20 @@ function processLpMessages(mqttmsg, mqttpayload) {
 		if (actualPower == 0) {
 			console.log("Not charging, disabling charging point " + index);
 			publish("0", "openWB/set/lp/" + index + "/ChargePointEnabled");
+			charging = false;
 		} else {
-			showChargingInterface();
-			setPower(actualPowerText, unit);
+			charging = true;
 		}
 
 		var actualPowerText = actualPower.toString();
 		if (actualPower > 999) {
 			actualPowerText = (actualPower / 1000).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 			unit = ' kW';
+		}
+
+		if (charging) {
+			showChargingInterface();
+			setPower(actualPowerText, unit);
 		}
 	}
 	else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/kWhchargedsinceplugged$/i ) ) {
@@ -214,7 +209,6 @@ function processLpMessages(mqttmsg, mqttpayload) {
 			energyCharged = 0;
 		}
 
-		showChargingInterface();
 		setEnergyCharged(energyCharged.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}), "kWh");
 	}
 	else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/kWhactualcharged$/i ) ) { // TODO!
@@ -223,14 +217,7 @@ function processLpMessages(mqttmsg, mqttpayload) {
 	}
 	else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/\%soc$/i ) ) {
 		// soc of ev at respective charge point
-		var index = getIndex(mqttmsg);  // extract number between two / /
-		var parent = $('[data-lp="' + index + '"]');  // get parent row element for charge point
-		var element = parent.find('.socLp');  // now get parents respective child element
-		var soc = parseInt(mqttpayload, 10);
-		if ( isNaN(soc) || soc < 0 || soc > 100 ) {
-			soc = '--';
-		}
-		element.text(soc + ' %');
+		// not implemented
 	}
 	else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/timeremaining$/i ) ) {
 		// time remaining for charging to target value
