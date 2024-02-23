@@ -6,16 +6,6 @@
  * @author Lutz Bender
  * @author Jannes Hühnerbein
  */
-
-function updateDashboardElement(elementText, elementChart, text, value){
-	// update text
-	if(elementText != null){
-		elementText.text(text);
-	}
-	// store value for sparklines
-	storeSparklineValue( elementChart, value );
-}
-
 function reloadDisplay() {
     /** @function reloadDisplay
      * triggers a reload of the current page
@@ -132,7 +122,7 @@ function processGlobalMessages(mqttmsg, mqttpayload) {
 		}
 		var element = $('#gesamtll');
 		var elementChart = $('#gesamtllchart');
-		updateDashboardElement(element, elementChart, powerAllLpText + unit, powerAllLp);
+		// updateDashboardElement(element, elementChart, powerAllLpText + unit, powerAllLp);
 	}
 	else if ( mqttmsg == 'openWB/global/strLastmanagementActive' ) {
 		console.log("openWB/global/strLastmanagementActive not implemented for minimal interface");
@@ -202,7 +192,7 @@ function processLpMessages(mqttmsg, mqttpayload) {
 			unit = ' kW';
 		}
 		var elementChart = parent.find('.ladepunktllchart');
-		updateDashboardElement(element, elementChart, actualPowerText + unit, actualPower);
+		// updateDashboardElement(element, elementChart, actualPowerText + unit, actualPower);
 	}
 	else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/kWhchargedsinceplugged$/i ) ) {
 		// energy charged since ev was plugged in
@@ -375,8 +365,6 @@ function processLpMessages(mqttmsg, mqttpayload) {
 				break;
 			case '1':
 				element.removeClass('hide');
-				// update sparklines
-				$.sparkline_display_visible();
 				break;
 		}
 	}
