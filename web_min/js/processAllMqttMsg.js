@@ -199,7 +199,9 @@ function processLpMessages(mqttmsg, mqttpayload) {
 			actualPowerText = (actualPower / 1000).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 			unit = ' kW';
 		}
-		setPower(actualPowerText, unit)
+
+		showChargingInterface();
+		setPower(actualPowerText, unit);
 	}
 	else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/kWhchargedsinceplugged$/i ) ) {
 		// energy charged since ev was plugged in
@@ -212,38 +214,12 @@ function processLpMessages(mqttmsg, mqttpayload) {
 			energyCharged = 0;
 		}
 
-		element.text(energyCharged.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + ' kWh');
-		
-		var kmChargedLp = parent.find('.kmChargedLp');  // now get parents kmChargedLp child element
-		var consumption = parseFloat($(kmChargedLp).data('consumption'));
-		var kmCharged = '';
-		if ( !isNaN(consumption) && consumption > 0 ) {
-			kmCharged = (energyCharged / consumption) * 100;
-			kmCharged = kmCharged.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + ' km';
-		} else {
-			kmCharged = '-- km';
-		}
-		
-		$(kmChargedLp).text(kmCharged);
-		setEnergyCharged(energyCharged, unit);
+		showChargingInterface();
+		setEnergyCharged(energyCharged.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}), "kWh");
 	}
 	else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/kWhactualcharged$/i ) ) { // TODO!
 		// energy charged since reset of limitation
-		var index = getIndex(mqttmsg);  // extract number between two / /
-		if ( isNaN(mqttpayload) ) {
-			mqttpayload = 0;
-		}
-		var parent = $('[data-lp="' + index + '"]');  // get parent div element for charge limitation
-		var element = parent.find('.limit-progress-bar');  // now get parents progress bar
-		element.data('actualCharged', mqttpayload);  // store value received
-		var limitElementId = 'lp/' + index + '/energyToCharge';
-		var limit = $('#' + $.escapeSelector(limitElementId)).val();  // slider value
-		if ( isNaN(limit) || limit < 2 ) {
-			limit = 2;  // minimum value
-		}
-		var progress = (mqttpayload / limit * 100).toFixed(0);
-		element.width(progress+"%");
-		parent.find('.limit-progress-label').text(progress+"%");
+		console.log("kWhactualcharged not implemented for minimal interface");
 	}
 	else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/\%soc$/i ) ) {
 		// soc of ev at respective charge point
@@ -258,20 +234,10 @@ function processLpMessages(mqttmsg, mqttpayload) {
 	}
 	else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/timeremaining$/i ) ) {
 		// time remaining for charging to target value
-		var index = getIndex(mqttmsg);  // extract number between two / /
-		var parent = $('[data-lp="' + index + '"]');  // get parent div element for charge limitation
-		var element = parent.find('.restzeitLp');  // get element
-		element.text(mqttpayload);
+		console.log("timeremaining not implemented for minimal interface");
 	}
 	else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/boolchargeatnight$/i ) ) {
-		var index = getIndex(mqttmsg);  // extract number between two / /
-		var parent = $('[data-lp="' + index + '"]');  // get parent row element for charge point
-		var element = parent.find('.nightChargingLp');  // now get parents respective child element
-		if ( mqttpayload == 1 ) {
-			element.removeClass('hide');
-		} else {
-			element.addClass('hide');
-		}
+		console.log("boolchargeatnight not implemented for minimal interface");
 	}
 	else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/boolplugstat$/i ) ) {
 		// status ev plugged in or not
@@ -283,6 +249,7 @@ function processLpMessages(mqttmsg, mqttpayload) {
 		} else {
 			element.addClass('hide');
 		}
+		console.log("boolplug stat " + index + " " + mqttpayload);
 	}
 	else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/boolchargestat$/i ) ) {
 		var index = getIndex(mqttmsg);  // extract number between two / /
@@ -293,13 +260,10 @@ function processLpMessages(mqttmsg, mqttpayload) {
 		} else {
 			element.removeClass('text-success').addClass('text-warning');
 		}
+		console.log("bool charge stat " + index + " " + mqttpayload);
 	}
 	else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/strchargepointname$/i ) ) {
-		var index = getIndex(mqttmsg);  // extract number between two / /
-		var parent = $('[data-lp="' + index + '"]');  // get parent row element for charge point
-		if( mqttpayload != 'LP'+index ){
-			parent.find('.nameLp').text(mqttpayload+' (LP'+index+')');
-		}
+		// not implemented
 	}
 	else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/chargepointenabled$/i ) ) {
 		var index = getIndex(mqttmsg);  // extract number between two / /
@@ -312,16 +276,7 @@ function processLpMessages(mqttmsg, mqttpayload) {
 		}
 	}
 	else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/countphasesinuse/i ) ) {
-		var index = getIndex(mqttmsg);  // extract number between two / /
-		var parent = $('[data-lp="' + index + '"]');  // get parent row element for charge point
-		var element = parent.find('.phasesInUseLp');  // now get parents respective child element
-		var phasesInUse = parseInt(mqttpayload, 10);
-		if ( isNaN(phasesInUse) || phasesInUse < 1 || phasesInUse > 3 ) {
-			element.text(' /');
-		} else {
-			var phaseSymbols = ['', '\u2460', '\u2461', '\u2462'];
-			element.text(' ' + phaseSymbols[phasesInUse]);
-		}
+		// not implemented
 	}
 	else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/aconfigured$/i ) ) {
 		// target current value at charge point
@@ -380,79 +335,15 @@ function processLpMessages(mqttmsg, mqttpayload) {
 		}
 	}
 	else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/autolockconfigured$/i ) ) {
-		var index = getIndex(mqttmsg);  // extract first match = number from
-		var parent = $('[data-lp="' + index + '"]');  // get parent row element for charge point
-		var element = parent.find('.autolockConfiguredLp');  // now get parents respective child element
-		if ( mqttpayload == 0 ) {
-			element.addClass('hide');
-		} else {
-			element.removeClass('hide');
-		}
+		// not implemented
 	}
 	else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/autolockstatus$/i ) ) {
-		// values used for AutolockStatus flag:
-		// 0 = standby
-		// 1 = waiting for autolock
-		// 2 = autolock performed
-		// 3 = auto-unlock performed
-		var index = getIndex(mqttmsg);  // extract number between two / /
-		var parent = $('[data-lp="' + index + '"]');  // get parent row element for charge point
-		var element = parent.find('.autolockConfiguredLp');  // now get parents respective child element
-		switch ( mqttpayload ) {
-			case '0':
-				// remove animation from span and set standard colored key icon
-				element.removeClass('fa-lock fa-lock-open animate-alertPulsation text-red text-green');
-				element.addClass('fa-key');
-				break;
-			case '1':
-				// add animation to standard icon
-				element.removeClass('fa-lock fa-lock-open text-red text-green');
-				element.addClass('fa-key animate-alertPulsation');
-				break;
-			case '2':
-				// add red locked icon
-				element.removeClass('fa-lock-open fa-key animate-alertPulsation text-green');
-				element.addClass('fa-lock text-red');
-				break;
-			case '3':
-				// add green unlock icon
-				element.removeClass('fa-lock fa-key animate-alertPulsation text-red');
-				element.addClass('fa-lock-open text-green');
-				break;
-		}
+		// implemented in lock_unlock.js
 	}
 	else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/energyconsumptionper100km$/i ) ) {
-		// store configured value in element attribute
-		// to calculate charged km upon receipt of charged energy
-		var index = getIndex(mqttmsg);  // extract number between two / /
-		var parent = $('[data-lp="' + index + '"]');  // get parent row element for charge point
-		var element = parent.find('.kmChargedLp');  // now get parents respective child element
-		var consumption = parseFloat(mqttpayload);
-		if ( isNaN(consumption) ) {
-			consumption = 0;
-		}
-		element.data('consumption', consumption);  // store value in data-attribute
-		// if already energyCharged-displayed, update kmCharged
-		var energyChargedLp = parent.find('.energyChargedLp');  // now get parents respective energyCharged child element
-		var energyCharged = parseFloat($(energyChargedLp).text());
-		var kmCharged = '';
-		if ( !isNaN(energyCharged) && consumption > 0 ) {
-			kmCharged = (energyCharged / consumption) * 100;
-			kmCharged = kmCharged.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + ' km';
-		} else {
-			kmCharged = '-- km';
-		}
-		element.text(kmCharged);
+		// not implemented
 	}
 	else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/boolfinishattimechargeactive$/i ) ) {
-		// respective charge point configured
-		var index = getIndex(mqttmsg);  // extract number between two / /
-		var parent = $('[data-lp="' + index + '"]');  // get parent row element for charge point
-		var element = parent.find('.targetChargingLp');  // now get parents respective child element
-		if (mqttpayload == 1) {
-			element.removeClass('hide');
-		} else {
-			element.addClass('hide');
-		}
+		// not implemented
 	}
 }

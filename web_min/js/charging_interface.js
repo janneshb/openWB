@@ -57,19 +57,13 @@ function startCharging() {
 	publish("1", "openWB/set/lp/" + lp + "/ChargePointEnabled");
 
 	// check if vehicle is charging...
-
-
-	setTimeout(() => {
-		disableLoadingUI();
-	}, 700);
-
-	setTimeout(() => {
-		showChargingInterface();
-	}, 700);
+	// we do this by waiting for a few seconds. In this time 
 }
 
 function showChargingInterface() {
 	console.log("show charging interface");
+	disableLoadingUI();
+
 	setTimeout(() => {
 		const bolt_icon = document.getElementById("the_bolt");
 		fadeIn(bolt_icon);
