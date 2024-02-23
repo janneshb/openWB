@@ -190,6 +190,7 @@ function processLpMessages(mqttmsg, mqttpayload) {
 
 		// disable charging point if not charging
 		if (actualPower == 0) {
+			console.log("Not charging, disabling charging point " + index);
 			publish("0", "openWB/set/lp/" + index + "/ChargePointEnabled");
 		}
 
@@ -210,7 +211,9 @@ function processLpMessages(mqttmsg, mqttpayload) {
 		if ( isNaN(energyCharged) ) {
 			energyCharged = 0;
 		}
+
 		element.text(energyCharged.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + ' kWh');
+		
 		var kmChargedLp = parent.find('.kmChargedLp');  // now get parents kmChargedLp child element
 		var consumption = parseFloat($(kmChargedLp).data('consumption'));
 		var kmCharged = '';
@@ -220,6 +223,7 @@ function processLpMessages(mqttmsg, mqttpayload) {
 		} else {
 			kmCharged = '-- km';
 		}
+		
 		$(kmChargedLp).text(kmCharged);
 		setEnergyCharged(energyCharged, unit);
 	}

@@ -53,6 +53,9 @@ function startCharging() {
 	var lp = 1; // charging point 1 by default
 	publish("1", "openWB/set/lp/" + lp + "/ChargePointEnabled");
 
+	// check if vehicle is charging...
+
+
 	setTimeout(() => {
 		disableLoadingUI();
 	}, 700);
@@ -141,8 +144,10 @@ function setChargeMode(chargeMode) {
 /* POWER AND kWh SINCE CHARGING */
 function setPower(kW_text, unit) {
 	console.log("Charging at " + kW_text + " " + unit);
+	document.getElementById("powerSpan").textContent = kW_text + " " + unit;
 }
 
-function setEnergy(kWh_text, unit) {
+function setEnergyCharged(kWh_text, unit) {
 	console.log("Charged " + kWh_text + " " + unit);
+	document.getElementById("energySpan").textContent = kWh_text + " " + unit;
 }

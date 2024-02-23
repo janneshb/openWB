@@ -327,3 +327,8 @@ footer {
 	float: right;
 	text-align: right;
 }
+
+/* kW / kWh span */
+.kWspan {
+	display: inline-bock;
+}
