@@ -40,6 +40,9 @@ function clearInterface() {
 
 	const stopChargingBtn = document.getElementById("stop_charging_button");
 	fadeOut(stopChargingBtn);
+
+	const powerEnergyContainer = document.getElementById("power_energy_container");
+	fadeOut(powerEnergyContainer);
 }
 
 /* START CHARGING */
@@ -84,6 +87,11 @@ function showChargingInterface() {
 
 	setTimeout(() => {
 		const stop_charging = document.getElementById("stop_charging_button");
+		fadeIn(stop_charging);
+	}, 700);
+
+	setTimeout(() => {
+		const stop_charging = document.getElementById("power_energy_container");
 		fadeIn(stop_charging);
 	}, 700);
 }

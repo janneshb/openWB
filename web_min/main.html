@@ -1,7 +1,10 @@
 <button class="big_button big_button_relative glowing hidden" id="stop_charging_button" style="opacity: 0;" onclick="stopCharging();">
     <i class="fa fa-pause"></i>
 </button>
-<span class="kWspan" id="powerSpan">0 kW</span><span class="kWspan" id="energySpan">0 kWh</span>
+
+<div class="power_energy_container" id="power_energy_container">
+    <span class="kWspan" id="powerSpan">0 kW</span>&nbsp;|&nbsp;<span class="kWspan" id="energySpan">0 kWh</span>
+</div>
 
 <button class="big_button big_button_relative rotating hidden" id="loading_charging_button" style="opacity: 0;" disabled>
     <i class="fa fa-spinner"></i>

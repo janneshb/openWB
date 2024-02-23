@@ -329,6 +329,10 @@ footer {
 }
 
 /* kW / kWh span */
+.power_energy_container {
+	display: block;
+}
+
 .kWspan {
 	display: inline-bock;
 }
