@@ -48,6 +48,7 @@ function clearInterface() {
 /* START CHARGING */
 function startCharging() {
 	console.log("start charging...");
+	clearInterface();
 
 	setTimeout(() => {
 		enableLoadingUI();
@@ -102,6 +103,8 @@ function showChargingInterface() {
 /* STOP CHARGING */
 function stopCharging() {
 	console.log("stop charging...");
+	clearInterface();
+
 	setTimeout(() => {
 		enableLoadingUI();
 	}, 700);
