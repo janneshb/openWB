@@ -192,6 +192,9 @@ function processLpMessages(mqttmsg, mqttpayload) {
 		if (actualPower == 0) {
 			console.log("Not charging, disabling charging point " + index);
 			publish("0", "openWB/set/lp/" + index + "/ChargePointEnabled");
+		} else {
+			showChargingInterface();
+			setPower(actualPowerText, unit);
 		}
 
 		var actualPowerText = actualPower.toString();
@@ -199,9 +202,6 @@ function processLpMessages(mqttmsg, mqttpayload) {
 			actualPowerText = (actualPower / 1000).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 			unit = ' kW';
 		}
-
-		showChargingInterface();
-		setPower(actualPowerText, unit);
 	}
 	else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/kWhchargedsinceplugged$/i ) ) {
 		// energy charged since ev was plugged in
