@@ -57,7 +57,15 @@ function startCharging() {
 	publish("1", "openWB/set/lp/" + lp + "/ChargePointEnabled");
 
 	// check if vehicle is charging...
-	// we do this by waiting for a few seconds. In this time 
+	// we do this by waiting for a few seconds.
+	// If in this time, no message for the current charging power has been published,
+	// return to "not charging"
+
+
+	setTimeout(() => {
+		clearInterface();
+		showNotChargingInterface();
+	}, 5000);
 }
 
 function showChargingInterface() {
