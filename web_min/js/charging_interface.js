@@ -60,8 +60,6 @@ function startCharging() {
 	// we do this by waiting for a few seconds.
 	// If in this time, no message for the current charging power has been published,
 	// return to "not charging"
-
-
 	setTimeout(() => {
 		clearInterface();
 		disableLoadingUI();
@@ -122,7 +120,7 @@ function stopCharging() {
 
 function showNotChargingInterface() {
 	console.log("show not-charging interface");
-	clearInterface();
+
 	const startChargingBtn = document.getElementById("start_charging_button");
 	fadeIn(startChargingBtn);
 
