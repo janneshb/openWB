@@ -63,11 +63,7 @@ function startCharging() {
 	// return to "not charging"
 	setTimeout(() => {
 		if (!charging) {
-			clearInterface();
-			disableLoadingUI();
-			setTimeout(() => {
-				showNotChargingInterface();
-			}, 700);
+			stopCharging();
 		}
 	}, 5000);
 }
