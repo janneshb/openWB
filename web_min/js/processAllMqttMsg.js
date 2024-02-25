@@ -7,6 +7,7 @@
  * @author Jannes Hühnerbein
  */
 var charging = false;
+var plugged_in = false;
 
 function reloadDisplay() {
     /** @function reloadDisplay
