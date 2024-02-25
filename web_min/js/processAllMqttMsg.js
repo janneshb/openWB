@@ -181,8 +181,7 @@ function processLpMessages(mqttmsg, mqttpayload) {
 		// disable charging point if not charging
 		if (actualPower == 0) {
 			console.log("Not charging, disabling charging point " + index);
-			publish("0", "openWB/set/lp/" + index + "/ChargePointEnabled");
-			charging = false;
+			stopCharging();
 		} else {
 			charging = true;
 		}
