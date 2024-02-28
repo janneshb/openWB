@@ -130,7 +130,7 @@ function startCharging() {
 
 	if (!displaylocked) {
 		showLoadingUI();
-		// TODO: wait for charging to start
+		loading = true;
 	}
 }
 
@@ -142,7 +142,7 @@ function stopCharging() {
 
 	if (!displaylocked) {
 		showLoadingUI();
-		// TODO: wait for charging to stop
+		loading = true;
 	}
 }
 
