@@ -72,12 +72,12 @@
         <span class="kWspan" id="powerSpan">0 kW</span>&nbsp;|&nbsp;<span class="kWspan" id="energySpan">0 kWh</span>
     </div>
 </div>
-<div class="bodylike hidden rotating" id="loading_body">
+<div class="bodylike vertically_centered hidden rotating" id="loading_body">
     <button class="big_button big_button_relative" id="loading_charging_button" disabled>
         <i class="fa fa-spinner"></i>
     </button>
 </div>
-<div class="bodylike hidden" id="not_charging_body">
+<div class="bodylike vertically_centered hidden" id="not_charging_body">
     <!-- UNLOCKED BUT NOT CHARGING INTERFACE -->
     <button class="big_button big_button_relative glowing" id="start_charging_button" onclick="startCharging();">
         <i class="fa fa-bolt"></i>
