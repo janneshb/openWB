@@ -79,7 +79,7 @@
 </div>
 <div class="bodylike hidden" id="not_charging_body" style="padding-top: 40px">
     <!-- UNLOCKED BUT NOT CHARGING INTERFACE -->
-    <button class="big_button big_button_relative glowing" id="start_charging_button" onclick="startCharging();">
+    <button class="big_button big_button_relative glowing" id="start_charging_button" onclick="startCharging();" disabled>
         <i class="fa fa-bolt"></i>
     </button>
 
