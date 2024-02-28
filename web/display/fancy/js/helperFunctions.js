@@ -180,9 +180,9 @@ function setEnergyCharged(kWh_text, unit) {
 function setPluggedIn(p) {
 	plugged_in = p;
 	if (plugged_in) {
-		$("start_charging_button").attr("disabled", false);
+		$("#start_charging_button").attr("disabled", false);
 	} else {
-		$("start_charging_button").attr("disabled", true);
+		$("#start_charging_button").attr("disabled", true);
 	}
 }
 
