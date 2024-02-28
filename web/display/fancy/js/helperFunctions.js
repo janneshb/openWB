@@ -10,6 +10,7 @@ function lock() {
 	$("#charging_body").addClass("hidden");
 	$("#loading_body").addClass("hidden");
 	$("#not_charging_body").addClass("hidden");
+	$("#the_footer").addClass("hidden");
 }
 
 function unlock() {
@@ -26,10 +27,11 @@ function unlock() {
 }
 
 function showLoadingUI() {
+	$("#loading_body").removeClass("hidden");
 	$("#locked_body").addClass("hidden");
 	$("#charging_body").addClass("hidden");
 	$("#not_charging_body").addClass("hidden");
-	$("#loading_body").removeClass("hidden");
+	$("#the_footer").addClass("hidden");
 }
 
 function showChargingUI() {
@@ -37,10 +39,13 @@ function showChargingUI() {
 	$("#locked_body").addClass("hidden");
 	$("#not_charging_body").addClass("hidden");
 	$("#loading_body").addClass("hidden");
+	$("#the_footer").addClass("hidden");
+
 }
 
 function showNotChargingUI() {
 	$("#not_charging_body").removeClass("hidden");
+	$("#the_footer").removeClass("hidden");
 	$("#locked_body").addClass("hidden");
 	$("#charging_body").addClass("hidden");
 	$("#loading_body").addClass("hidden");
