@@ -63,18 +63,9 @@ function getIndex(topic) {
 }  // end handlevar
  
  function processDisplayConfigMessages(mqttmsg, mqttpayload) {
+    // FANCY: not implemented
     //console.log("Msg: "+mqttmsg+": "+mqttpayload);
     if ( mqttmsg == 'openWB/config/get/display/showHouseConsumption' ) {
-        switch (mqttpayload) {
-            case '0':
-                // hide house consumption
-                $('.hausverbrauch').addClass('hide');
-                break;
-            case '1':
-                // show house consumption
-                $('.hausverbrauch').removeClass('hide');
-                break;
-        }
     }
     else if ( mqttmsg == 'openWB/config/get/display/chartHouseConsumptionMax' ) {
     }
@@ -89,20 +80,15 @@ function getIndex(topic) {
  }
  
  function processPvConfigMessages(mqttmsg, mqttpayload) {
+    // FANCY: not implemented
     if ( mqttmsg == 'openWB/config/get/pv/priorityModeEVBattery' ) {
         // sets button color in charge mode modal and sets icon in mode select button
         switch (mqttpayload) {
             case '0':
                 // battery priority
-                $('#evPriorityBtn').removeClass('btn-success');
-                $('#batteryPriorityBtn').addClass('btn-success');
-                $('.priorityEvBatteryIcon').removeClass('fa-car').addClass('fa-car-battery')
                 break;
             case '1':
                 // ev priority
-                $('#evPriorityBtn').addClass('btn-success');
-                $('#batteryPriorityBtn').removeClass('btn-success');
-                $('.priorityEvBatteryIcon').removeClass('fa-car-battery').addClass('fa-car')
                 break;
         }
     }
@@ -111,16 +97,13 @@ function getIndex(topic) {
         switch (mqttpayload) {
             case '0':
                 // deaktiviert
-                $('#70ModeBtn').addClass('hide');
                 break;
             case '1':
                 // activiert
-                $('#70ModeBtn').removeClass('hide');
                 break;
         }
     }
     else if ( mqttmsg == 'openWB/config/get/pv/minCurrentMinPv' ) {
-    // setInputValue('minCurrentMinPv', mqttpayload);
     }
  }
  
@@ -132,35 +115,15 @@ function getIndex(topic) {
     if ( element.attr('type') == 'range' ) {
     // setInputValue(elementId, mqttpayload);
     } else if ( element.hasClass('btn-group-toggle') ) {
-    setToggleBtnGroup(elementId, mqttpayload);
+        setToggleBtnGroup(elementId, mqttpayload);
     }
  }
  
  function processEvuMessages(mqttmsg, mqttpayload) {
+    // FANCY: not implemented
     // processes mqttmsg for topic openWB/evu
     // called by handlevar
     if ( mqttmsg == 'openWB/evu/W' ) {
-        var prefix = '';
-        var unit = ' W';
-        var powerEvu = parseInt(mqttpayload, 10);
-        if ( isNaN(powerEvu) ) {
-            powerEvu = 0;
-        }
-        // now use a temp value to keep original value with sign for sparkline
-        var powerEvuValue = powerEvu;
-        if ( powerEvuValue > 0 ) {
-            prefix = ' Imp: ';
-        } else if( powerEvuValue < 0 ) {
-            powerEvuValue *= -1;
-            prefix = ' Exp: ';
-        }
-        var powerEvuText = powerEvuValue.toString();
-        if ( powerEvuValue >= 1000 ) {
-            powerEvuText = (powerEvuValue / 1000).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            unit = ' kW';
-        }
-        var element = $('#evul');
-        var elementChart = $('#evulchart');
     }
  }
  
@@ -168,18 +131,6 @@ function getIndex(topic) {
     // processes mqttmsg for topic openWB/global
     // called by handlevar
     if ( mqttmsg == 'openWB/global/WHouseConsumption' ) {
-        var unit = ' W';
-        var powerHouse = parseInt(mqttpayload, 10);
-        if ( isNaN(powerHouse) || (powerHouse < 0) ) {
-            powerHouse = 0;
-        }
-        powerHouseText = powerHouse.toString();
-        if ( powerHouse > 999 ) {
-            powerHouseText = (powerHouse / 1000).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            unit = ' kW';
-        }
-        var element = $('#hausverbrauchl');
-        var elementChart = $('#hausverbrauchlchart');
     }
     else if ( mqttmsg == 'openWB/global/WAllChargePoints') {
         var unit = ' W';
@@ -196,14 +147,9 @@ function getIndex(topic) {
         var elementChart = $('#gesamtllchart');
     }
     else if ( mqttmsg == 'openWB/global/strLastmanagementActive' ) {
+        // FANCY: not implemented
         if ( mqttpayload.length >= 5 ) {
-            // if there is info-text in payload for topic, show the text
-            $('#lastregelungaktiv').text(mqttpayload);
-            $('#lastmanagementShowBtn').removeClass('hide');
         } else {
-            // if there is no text, show nothing (hides row)
-            $('#lastregelungaktiv').text('');
-            $('#lastmanagementShowBtn').addClass('hide');
         }
     }
     else if ( mqttmsg == 'openWB/global/ChargeMode' ) {
@@ -214,48 +160,27 @@ function getIndex(topic) {
         switch (mqttpayload) {
             case '0':
                 // mode sofort
-                $('.chargeModeSelectBtnText').text('Sofort');  // text btn main page
-                $('.chargeModeBtn').removeClass('btn-success');  // changes to select buttons in modal
-                $('.chargeModeBtnSofort').addClass('btn-success');
-                $('.priorityEvBatteryIcon').addClass('hide');  // visibility of priority icon
-                $('.chargeMode').addClass('hide'); // modal chargepoint config
-                $('.chargeModeSofort').removeClass('hide'); // modal chargepoint config
+                console.log("Charge Mode switched to SOFORT");
+                setChargeModeInterface("0");
                 break;
             case '1':
                 // mode min+pv
-                $('.chargeModeSelectBtnText').text('Min+PV');
-                $('.chargeModeBtn').removeClass('btn-success');
-                $('.chargeModeBtnMinPV').addClass('btn-success');
-                $('.priorityEvBatteryIcon').addClass('hide');
-                $('.chargeMode').addClass('hide'); // modal chargepoint config
-                $('.chargeModeMinPv').removeClass('hide'); // modal chargepoint config
+                console.log("Charge Mode switched to Min+PV");
+                setChargeModeInterface("1");
                 break;
             case '2':
                 // mode pv
-                $('.chargeModeSelectBtnText').text('PV');
-                $('.chargeModeBtn').removeClass('btn-success');
-                $('.chargeModeBtnPV').addClass('btn-success');
-                $('.priorityEvBatteryIcon').removeClass('hide');
-                $('.chargeMode').addClass('hide'); // modal chargepoint config
-                $('.chargeModePv').removeClass('hide'); // modal chargepoint config
+                // FANCY: not implemented
                 break;
             case '3':
-                // mode stop
-                $('.chargeModeSelectBtnText').text('Stop');
-                $('.chargeModeBtn').removeClass('btn-success');
-                $('.chargeModeBtnStop').addClass('btn-success');
-                $('.priorityEvBatteryIcon').addClass('hide');
-                $('.chargeMode').addClass('hide'); // modal chargepoint config
-                $('.chargeModeStop').removeClass('hide'); // modal chargepoint config
+                // mode stop --> stop charging
+                console.log("Charge Mode switched to STOP");
+                stopCharging();
                 break;
             case '4':
                 // mode standby
-                $('.chargeModeSelectBtnText').text('Standby');
-                $('.chargeModeBtn').removeClass('btn-success');
-                $('.chargeModeBtnStandby').addClass('btn-success');
-                $('.priorityEvBatteryIcon').addClass('hide');
-                $('.chargeMode').addClass('hide'); // modal chargepoint config
-                $('.chargeModeStandby').removeClass('hide'); // modal chargepoint config
+                // FANCY: not implemented
+                setChargeModeInterface("1");
                 break;
         }
     }

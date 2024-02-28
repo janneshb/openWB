@@ -5,6 +5,7 @@
 /* LOCK / UNLOCK */
 function lock() {
 	console.log("Locking interface...");
+	displaylocked = true;
 	$("#locked_body").removeClass("hidden");
 	$("#charging_body").addClass("hidden");
 	$("#loading_body").addClass("hidden");
@@ -13,6 +14,7 @@ function lock() {
 
 function unlock() {
 	console.log("Unlocking interface...");
+	displaylocked = false;
 	$("#locked_body").addClass("hidden");
 	$("#charging_body").addClass("hidden");
 	$("#not_charging_body").addClass("hidden");
@@ -79,4 +81,49 @@ function clearPin() {
 	}
 	focusedInput.value = "";
 	focusedInput.focus();
+}
+
+
+/* CHECK IF CHARGING OR NOT */
+function checkIfCharging() {
+
+}
+
+
+/* START / STOP CHARGING */
+function startCharging() {
+	console.log("Start charging...");
+	// TODO
+}
+
+function stopCharging() {
+	console.log("Stop charging...");
+	// TODO
+}
+
+/* SET CHARGE MODE */
+function setChargeModeInterface(charge_mode) {
+	console.log("set charging mode for interface");
+	switch(charge_mode) {
+		case "0":
+			// mode sofort
+			$("#chargeModeRadioBtnMin").prop('checked', false);
+			$("#chargeModeRadioBtnSofort").prop('checked', true);
+			break;
+		default:
+			// mode min + pv
+			$("#chargeModeRadioBtnMin").prop('checked', true);
+			$("#chargeModeRadioBtnSofort").prop('checked', false);
+	}
+}
+
+/* POWER AND kWh SINCE CHARGING */
+function setPower(kW_text, unit) {
+	console.log("Charging at " + kW_text + " " + unit);
+	document.getElementById("powerSpan").textContent = kW_text + " " + unit;
+}
+
+function setEnergyCharged(kWh_text, unit) {
+	console.log("Charged " + kWh_text + " " + unit);
+	document.getElementById("energySpan").textContent = kWh_text + " " + unit;
 }
