@@ -1,6 +1,8 @@
 <?php
 $result = '';
+$remove[] = "'";
 $lines = file($_SERVER['DOCUMENT_ROOT'] . '/openWB/openwb.conf');
+$wallboxname = "openWB";
 foreach($lines as $line) {
 	if(strpos($line, "etprovideraktiv=") !== false) {
 		list(, $etprovideraktivold) = explode("=", $line);
@@ -159,7 +161,7 @@ foreach($lines as $line) {
 		list(, $ssdisplayold) = explode("=", $line);
 	}
 	if(strpos($line, "wallboxname=") !== false) {
-		list(, $wallboxname) = str_replace($remove, "", explode('=', $line, 2)[1]);
+		$wallboxname = str_replace($remove, "", explode('=', $line, 2)[1]);
 	}
 }
 $displaypincodeold = str_replace("\n", '', $displaypincodeold);
