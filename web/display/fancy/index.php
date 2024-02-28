@@ -103,7 +103,9 @@
 </div>
 <script>
     $(document).ready(function(){
-        var loading = true;
+        var charging = false;
+        var plugged_in = false;
+
         // set charge mode on Radio Button Change
         $('input[type=radio][name=charging_speed]').change(function() {
             var chargeMode = $(this).attr("data-chargeMode");

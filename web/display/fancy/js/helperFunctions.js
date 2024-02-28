@@ -116,9 +116,11 @@ function clearPin() {
 
 /* CHECK IF CHARGING OR NOT */
 function checkIfCharging() {
-	console.log("Checking charge state...");
-	// TODO return charging state (true/false)
-	return true;
+	return charging;
+}
+
+function checkIfPluggedIn() {
+	return plugged_in;
 }
 
 /* START / STOP CHARGING */
@@ -126,11 +128,9 @@ function startCharging() {
 	console.log("Start charging...");
 	var lp = 1; // charging point 1 by default
 	publish("1", "openWB/set/lp/" + lp + "/ChargePointEnabled");
-	charging = false;
 
 	if (!displaylocked) {
 		showLoadingUI();
-		loading = true;
 	}
 }
 
@@ -138,11 +138,9 @@ function stopCharging() {
 	console.log("Stop charging...");
 	var lp = 1; // charging point 1 by default
 	publish("0", "openWB/set/lp/" + lp + "/ChargePointEnabled");
-	charging = false;
 
 	if (!displaylocked) {
 		showLoadingUI();
-		loading = true;
 	}
 }
 
