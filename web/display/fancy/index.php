@@ -54,7 +54,7 @@
         <p class="pin_text" id="wrong_pin_msg" style="visibility: hidden;">Falsche PIN</p>
     </div>
 </div>
-<div class="bodylike hidden" id="charging_body">
+<div class="bodylike hidden" id="charging_body" style="padding-top: 40px; text-align: center;">
     <!-- UNLOCKED AND CHARGING INTERFACE -->
     <button class="big_button big_button_relative glowing" id="stop_charging_button" onclick="stopCharging();">
         <i class="fa fa-pause"></i>
