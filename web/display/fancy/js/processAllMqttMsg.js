@@ -311,7 +311,9 @@ function getIndex(topic) {
     else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/chargepointenabled$/i ) ) {
         var index = getIndex(mqttmsg);  // extract number between two / /
         if ( mqttpayload == 0 ) {
+            console.log("disabled charge point " + index);
         } else {
+            console.log("enabled charge point " + index);
         }
     }
     else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/countphasesinuse/i ) ) {

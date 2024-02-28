@@ -11,6 +11,10 @@ function lock() {
 	$("#loading_body").addClass("hidden");
 	$("#not_charging_body").addClass("hidden");
 	$("#the_footer").addClass("hidden");
+
+	if (!charging) {
+		disableChargePoint();
+	}
 }
 
 function unlock() {
@@ -22,6 +26,7 @@ function unlock() {
 	if (charging) {
 		showChargingUI();
 	} else {
+		disableChargePoint();
 		showNotChargingUI();
 	}
 }
@@ -50,6 +55,18 @@ function showNotChargingUI() {
 	$("#charging_body").addClass("hidden");
 	$("#loading_body").addClass("hidden");
 }
+
+/* ENABLE / DISABLE CHARGING */
+function enableChargePoint() {
+	var lp = 1; // charging point 1 by default
+	publish("1", "openWB/set/lp/" + lp + "/ChargePointEnabled");
+}
+
+function disableChargePoint() {
+	var lp = 1; // charging point 1 by default
+	publish("0", "openWB/set/lp/" + lp + "/ChargePointEnabled");
+}
+
 
 /* TRACK FOCUSED ELEMENT */
 let focusedInput = null;
@@ -126,8 +143,7 @@ function checkIfPluggedIn() {
 /* START / STOP CHARGING */
 function startCharging() {
 	console.log("Start charging...");
-	var lp = 1; // charging point 1 by default
-	publish("1", "openWB/set/lp/" + lp + "/ChargePointEnabled");
+	enableChargePoint();
 
 	if (!displaylocked) {
 		showLoadingUI();
@@ -136,8 +152,7 @@ function startCharging() {
 
 function stopCharging() {
 	console.log("Stop charging...");
-	var lp = 1; // charging point 1 by default
-	publish("0", "openWB/set/lp/" + lp + "/ChargePointEnabled");
+	disableChargePoint();
 
 	if (!displaylocked) {
 		showLoadingUI();
