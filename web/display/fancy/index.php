@@ -77,7 +77,7 @@
         <i class="fa fa-spinner"></i>
     </button>
 </div>
-<div class="bodylike hidden" id="not_charging_body" style="padding-top: 25px">
+<div class="bodylike hidden" id="not_charging_body" style="padding-top: 40px">
     <!-- UNLOCKED BUT NOT CHARGING INTERFACE -->
     <button class="big_button big_button_relative glowing" id="start_charging_button" onclick="startCharging();">
         <i class="fa fa-bolt"></i>
