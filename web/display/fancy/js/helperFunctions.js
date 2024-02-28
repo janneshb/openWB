@@ -16,7 +16,7 @@ function unlock() {
 	console.log("Unlocking interface...");
 	displaylocked = false;
 	showLoadingUI();
-	
+
 	var charging = checkIfCharging();
 	if (charging) {
 		showChargingUI();
@@ -112,8 +112,9 @@ function clearPin() {
 /* CHECK IF CHARGING OR NOT */
 function checkIfCharging() {
 	console.log("Checking charge state...");
+	// TODO return charging state (true/false)
+	return false;
 }
-
 
 /* START / STOP CHARGING */
 function startCharging() {
@@ -122,8 +123,9 @@ function startCharging() {
 	publish("1", "openWB/set/lp/" + lp + "/ChargePointEnabled");
 	charging = false;
 
-	if (displaylocked) {
-
+	if (!displaylocked) {
+		showLoadingUI();
+		// TODO: wait for charging to start
 	}
 }
 
@@ -134,7 +136,8 @@ function stopCharging() {
 	charging = false;
 
 	if (!displaylocked) {
-
+		showLoadingUI();
+		// TODO: wait for charging to stop
 	}
 }
 
