@@ -56,34 +56,34 @@
 </div>
 <div class="bodylike hidden" id="charging_body">
     <!-- UNLOCKED AND CHARGING INTERFACE -->
-    <button class="big_button big_button_relative glowing hidden" id="stop_charging_button" style="opacity: 0;" onclick="stopCharging();">
+    <button class="big_button big_button_relative glowing" id="stop_charging_button" onclick="stopCharging();">
         <i class="fa fa-pause"></i>
     </button>
 
-    <button class="big_button big_button_relative no_background hidden inline" id="the_bolt" style="opacity: 0;" disabled>
+    <button class="big_button big_button_relative no_background inline" id="the_bolt" disabled>
         <i class="fa fa-bolt"></i>
     </button>
-    <div class="loading-dots inline-block hidden" id="charging_dots"></div>
-    <button class="big_button big_button_relative no_background hidden inline" id="the_car" style="opacity: 0;" disabled>
+    <div class="loading-dots inline-block" id="charging_dots"></div>
+    <button class="big_button big_button_relative no_background inline" id="the_car" disabled>
         <i class="fa fa-car"></i>
     </button>
 
-    <div class="power_energy_container hidden" id="power_energy_container">
+    <div class="power_energy_container" id="power_energy_container">
         <span class="kWspan" id="powerSpan">0 kW</span>&nbsp;|&nbsp;<span class="kWspan" id="energySpan">0 kWh</span>
     </div>
 </div>
 <div class="bodylike hidden" id="loading_body">
-    <button class="big_button big_button_relative rotating hidden" id="loading_charging_button" style="opacity: 0;" disabled>
+    <button class="big_button big_button_relative rotating" id="loading_charging_button" disabled>
         <i class="fa fa-spinner"></i>
     </button>
 </div>
 <div class="bodylike hidden" id="not_charging_body">
     <!-- UNLOCKED BUT NOT CHARGING INTERFACE -->
-    <button class="big_button big_button_relative glowing hidden" id="start_charging_button" onclick="startCharging();">
+    <button class="big_button big_button_relative glowing" id="start_charging_button" onclick="startCharging();">
         <i class="fa fa-bolt"></i>
     </button>
 
-    <div class="container centered hidden" id="charging_speed_container">
+    <div class="container centered" id="charging_speed_container">
         <div class="radio_container">
             <label for="solar"><i class="fa fa-sun"></i></label>
             <input type="radio" checked="checked" name="charging_speed" value="solar" class="chargeModeRadioBtn" id="chargeModeRadioBtnMin" data-chargeMode="1">
@@ -100,42 +100,41 @@
             <span>Sofort</span>
         </div>
     </div>
-    
-    <script>
-        $(document).ready(function(){
-            /*
-            $('input[type=radio][name=charging_speed]').change(function() {
-                var chargeMode = $(this).attr("data-chargeMode");
-                console.log("charge mode changed to " + chargeMode);
-                setChargeMode(chargeMode);
-            });
-            */
-
-            // display lock
-            $.get(
-                { url: "display/cards/checklock.php?lock=1", cache: false },
-                function(data){
-                    if( data == "1" ){
-                        displaypinaktiv = 1;
-                        lock();
-                    } else {
-                        displaypinaktiv = 0;
-                        unlock();
-                    }
-                }
-            );
-
-            /*
-            $('#displaylock').on("click", function(){
-                if( displaylocked == true ){
-                    $("#lockModal").modal("show");
-                } else {
-                    lockDisplay(true);
-                }
-            });
-            */
-        });
-    </script>
 </div>
+<script>
+    $(document).ready(function(){
+        /*
+        $('input[type=radio][name=charging_speed]').change(function() {
+            var chargeMode = $(this).attr("data-chargeMode");
+            console.log("charge mode changed to " + chargeMode);
+            setChargeMode(chargeMode);
+        });
+        */
+
+        // display lock
+        $.get(
+            { url: "display/cards/checklock.php?lock=1", cache: false },
+            function(data){
+                if( data == "1" ){
+                    displaypinaktiv = 1;
+                    lock();
+                } else {
+                    displaypinaktiv = 0;
+                    unlock();
+                }
+            }
+        );
+
+        /*
+        $('#displaylock').on("click", function(){
+            if( displaylocked == true ){
+                $("#lockModal").modal("show");
+            } else {
+                lockDisplay(true);
+            }
+        });
+        */
+    });
+</script>
 </body>
 </html>

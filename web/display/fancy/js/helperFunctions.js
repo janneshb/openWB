@@ -4,6 +4,7 @@
 
 /* LOCK / UNLOCK */
 function lock() {
+	console.log("Locking interface...");
 	$("#locked_body").removeClass("hidden");
 	$("#charging_body").addClass("hidden");
 	$("#loading_body").addClass("hidden");
@@ -11,6 +12,7 @@ function lock() {
 }
 
 function unlock() {
+	console.log("Unlocking interface...");
 	$("#locked_body").addClass("hidden");
 	$("#charging_body").removeClass("hidden");
 	$("#loading_body").removeClass("hidden");
