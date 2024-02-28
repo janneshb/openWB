@@ -86,19 +86,37 @@ function clearPin() {
 
 /* CHECK IF CHARGING OR NOT */
 function checkIfCharging() {
-
+	console.log("Checking charge state...");
 }
 
 
 /* START / STOP CHARGING */
 function startCharging() {
 	console.log("Start charging...");
-	// TODO
+	var lp = 1; // charging point 1 by default
+	publish("1", "openWB/set/lp/" + lp + "/ChargePointEnabled");
+	charging = false;
+
+	if (displaylocked) {
+		$("#charging_body").removeClass("hidden");
+		$("#locked_body").addClass("hidden");
+		$("#not_charging_body").addClass("hidden");
+		$("#loading_body").addClass("hidden");
+	}
 }
 
 function stopCharging() {
 	console.log("Stop charging...");
-	// TODO
+	var lp = 1; // charging point 1 by default
+	publish("0", "openWB/set/lp/" + lp + "/ChargePointEnabled");
+	charging = false;
+
+	if (!displaylocked) {
+		$("#not_charging_body").removeClass("hidden");
+		$("#locked_body").addClass("hidden");
+		$("#charging_body").addClass("hidden");
+		$("#loading_body").addClass("hidden");
+	}
 }
 
 /* SET CHARGE MODE */
@@ -115,6 +133,11 @@ function setChargeModeInterface(charge_mode) {
 			$("#chargeModeRadioBtnMin").prop('checked', true);
 			$("#chargeModeRadioBtnSofort").prop('checked', false);
 	}
+}
+
+function setChargeMode(chargeMode) {
+	console.log("set charge mode " + chargeMode);
+	publish(chargeMode, "openWB/set/ChargeMode");
 }
 
 /* POWER AND kWh SINCE CHARGING */

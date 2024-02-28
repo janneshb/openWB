@@ -176,6 +176,7 @@ function getIndex(topic) {
                 // mode stop --> stop charging
                 console.log("Charge Mode switched to STOP");
                 stopCharging();
+                setChargeMode(1); // set standard charge mode Min+PV
                 break;
             case '4':
                 // mode standby
