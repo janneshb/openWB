@@ -2,6 +2,21 @@
  * Helper Functions for Fancy Interface
  */
 
+/* LOCK / UNLOCK */
+function lock() {
+	$("#locked_body").removeClass("hidden");
+	$("#charging_body").addClass("hidden");
+	$("#loading_body").addClass("hidden");
+	$("#not_charging_body").addClass("hidden");
+}
+
+function unlock() {
+	$("#locked_body").addClass("hidden");
+	$("#charging_body").removeClass("hidden");
+	$("#loading_body").removeClass("hidden");
+	$("#not_charging_body").removeClass("hidden");
+}
+
 /* TRACK FOCUSED ELEMENT */
 let focusedInput = null;
 let previousFocusedInput = null;
