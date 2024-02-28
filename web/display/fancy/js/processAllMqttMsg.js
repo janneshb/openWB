@@ -288,18 +288,18 @@ function getIndex(topic) {
         // status ev plugged in or not
         var index = getIndex(mqttmsg);  // extract number between two / /
         if ( mqttpayload == 1 ) {
-            if (index == "1") plugged_in = true;
+            if (index == "1") setPluggedIn(true);
         } else {
-            if (index == "1") plugged_in = false;
+            if (index == "1") setPluggedIn(false);
         }
         console.log("boolplugstat " + index + ": " + mqttpayload);
     }
     else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/boolchargestat$/i ) ) {
         var index = getIndex(mqttmsg);  // extract number between two / /
         if ( mqttpayload == 1 ) {
-            if (index == "1") charging = true;
+            if (index == "1") setCharging(true);
         } else {
-            if (index == "1") charging = false;
+            if (index == "1") setCharging(false);
         }
         console.log("boolchargestat " + index + ": " + mqttpayload);
     }

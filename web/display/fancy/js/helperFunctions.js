@@ -175,3 +175,25 @@ function setEnergyCharged(kWh_text, unit) {
 	console.log("Charged " + kWh_text + " " + unit);
 	document.getElementById("energySpan").textContent = kWh_text + " " + unit;
 }
+
+/* SET PLUGGED IN OR NOT */
+function setPluggedIn(p) {
+	plugged_in = p;
+	if (plugged_in) {
+		$("start_charging_button").attr("disabled", false);
+	} else {
+		$("start_charging_button").attr("disabled", true);
+	}
+}
+
+/* SET CHARGING OR NOT */
+function setCharging(c) {
+	charging = c;
+	if (charging && !displaylocked) {
+		showChargingUI();
+	} else if (!charging && !displaylocked) {
+		showNotChargingUI();
+	} else {
+		lock();
+	}
+}
