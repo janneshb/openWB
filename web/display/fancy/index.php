@@ -102,10 +102,45 @@
     </div>
 </div>
 <script>
-    $(document).ready(function(){
-        var charging = false;
-        var plugged_in = false;
+    var displaypinaktiv = 1;
+    var lockTimeoutHandler = null;
+    var lockTimeout = 30 * 1000;
 
+    var charging = false;
+    var plugged_in = false;
+    var displaylocked = true;
+
+    function lockDisplay( lock = true ){
+        if( lock == false ){
+            unlock();
+            lockTimeoutHandler = window.setTimeout(lockDisplay, lockTimeout);
+        } else {
+            lock();
+            window.clearTimeout(lockTimeoutHandler);
+            lockTimeoutHandler = null;
+        }
+    }
+
+    window.setInterval(function(){
+        $.get(
+            { url: "display/cards/checklock.php?lock=1", cache: false },
+            function(data){
+                if( data == "1" ){
+                    displaypinaktiv = 1;
+                    if( lockTimeoutHandler == null ) {
+                        displaylocked = true;
+                    }
+                } else {
+                    displaypinaktiv = 0;
+                    unlock();
+                    window.clearTimeout(lockTimeoutHandler);
+                    lockTimeoutHandler = null;
+                }
+            }
+        );
+    }, 15000);
+
+    $(document).ready(function(){
         // set charge mode on Radio Button Change
         $('input[type=radio][name=charging_speed]').change(function() {
             var chargeMode = $(this).attr("data-chargeMode");
@@ -125,6 +160,7 @@
                 }
             }
         );
+
     });
 </script>
 <footer class="hidden" id="the_footer">
