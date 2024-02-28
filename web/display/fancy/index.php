@@ -72,7 +72,7 @@
         <span class="kWspan" id="powerSpan">0 kW</span>&nbsp;|&nbsp;<span class="kWspan" id="energySpan">0 kWh</span>
     </div>
 </div>
-<div class="bodylike hidden rotating" id="loading_body" style="display: flex; justify-content: center; align-items: center;">
+<div class="bodylike hidden rotating" id="loading_body">
     <button class="big_button big_button_relative" id="loading_charging_button" disabled>
         <i class="fa fa-spinner"></i>
     </button>
@@ -125,7 +125,7 @@
     });
 </script>
 <footer class="hidden" id="the_footer">
-    <!--<p class="settings" style="visibility: hidden;"><a href="/openWB/web_min/settings.php"><i class="fa fa-cog"></i>&nbsp;Einstellungen</a></p>-->
+    <p class="settings" style="visibility: hidden;"><a href="/openWB/web_min/settings.php"><i class="fa fa-cog"></i>&nbsp;Einstellungen</a></p>
     <p class="footer_title"><?php echo $wallboxname; ?></p>
     <p class="switch_to_pro"><a href="/openWB/web/display/cards/">Henze-Modus&nbsp;<i class="fa fa-angle-right"></i></a></p>
 </footer>

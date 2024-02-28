@@ -55,6 +55,11 @@ a:hover {
     margin: 0;
     padding: 0;
     overflow: hidden;
+	
+	/* for vertical alignment */
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .container {
