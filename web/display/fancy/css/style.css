@@ -137,8 +137,9 @@ a:hover {
 }
 
 .no_background {
-	background-color: transparent;
-	border-color: transparent;
+	background-color: transparent !important;
+	border-color: transparent !important;
+	opacity: 1.0 !important;
 }
 
 .hidden {
