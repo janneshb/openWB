@@ -4,66 +4,10 @@
  * @author Kevin Wieland
  * @author Michael Ortenstein
  * @author Lutz Bender
+ * @author Jannes Huehnerbein
  */
 
- // global object to store values from mqtt
- var lastSparklineValues = [];
- // stores data as array of js objects: { chartElement: null, value: 0 }
- 
- function storeSparklineValue( element, value ) {
-     //console.log("storing Sparkline value: element: "+element.attr('data-chartName')+" value: "+value);
-     var done = false;
-     for ( index = 0; (index < lastSparklineValues.length) && !done; index++ ) {
-         if( lastSparklineValues[index].chartElement.attr('data-chartName') == element.attr('data-chartName') ){
-             lastSparklineValues[index].value = value;
-             done = true;
-         }
-     }
-     if ( !done ) {
-         lastSparklineValues.push( { "chartElement": element, "value": value } );
-     }
- }
- 
- setInterval( updateSparklines, 15000);
- 
- function updateSparklines(){
-     //console.log("updating Sparklines...");
-     for ( index = 0; index < lastSparklineValues.length; index++ ) {
-         var chartElement = lastSparklineValues[index].chartElement;
-         //console.log("chartElement: "+chartElement.attr('data-chartName'));
-         var chartdata = lastSparklineValues[index].chartElement.attr('data-values');
-         var chartdataarray = chartdata.split(',');
-         // add new value
-         chartdataarray.push( lastSparklineValues[index].value );
-         // limit data length to 57 values
-         chartdataarray = chartdataarray.slice(-57);
-         // store values
-         chartElement.attr('data-values', chartdataarray.join(','));
-         // update chart
-         chartElement.sparkline( chartdataarray, {
-             // global settings
-             //	width: '100%', // problem with hidden sparklines!
-             width: '280px',
-             height: '60px',
-             disableInteraction: true,
-             type: 'bar',
-             enableTagOptions: true,
-             tagOptionsPrefix: 'data-spark',
-             tagValuesAttribute: 'data-values'
-         });
-     }
-     //console.log("done updating Sparklines");
- }
- 
- function updateDashboardElement(elementText, elementChart, text, value){
-     // update text
-     if(elementText != null){
-         elementText.text(text);
-     }
-     // store value for sparklines
-     storeSparklineValue( elementChart, value );
- }
- 
+
  function reloadDisplay() {
      /** @function reloadDisplay
       * triggers a reload of the current page
@@ -134,27 +78,14 @@
          }
      }
      else if ( mqttmsg == 'openWB/config/get/display/chartHouseConsumptionMax' ) {
-         var chartElement = $('.sparkline[data-chartname=hausverbrauchlchart]');
-         chartElement.attr('data-sparkChartRangeMax', mqttpayload);
      }
      else if ( mqttmsg == 'openWB/config/get/display/chartEvuMinMax' ) {
-         var chartElement = $('.sparkline[data-chartname=evulchart]');
-         chartElement.attr('data-sparkChartRangeMax', mqttpayload);
-         chartElement.attr('data-sparkChartRangeMin', mqttpayload*-1);
      }
      else if ( mqttmsg == 'openWB/config/get/display/chartBatteryMinMax' ) {
-         var chartElement = $('.sparkline[data-chartname=hausbatteriellchart]');
-         chartElement.attr('data-sparkChartRangeMax', mqttpayload);
-         chartElement.attr('data-sparkChartRangeMin', mqttpayload*-1);
      }
      else if ( mqttmsg == 'openWB/config/get/display/chartPvMax' ) {
-         var chartElement = $('.sparkline[data-chartname=pvlchart]');
-         chartElement.attr('data-sparkChartRangeMax', mqttpayload);
      }
      else if ( mqttmsg.match( /^openwb\/config\/get\/display\/chartLp\/[1-9][0-9]*\/max$/i ) ) {
-         var index = getIndex(mqttmsg);  // extract number between two / /
-         var chartElement = $('.sparkline[data-chartname=ladepunkt'+index+'llchart]');
-         chartElement.attr('data-sparkChartRangeMax', mqttpayload);
      }
  }
  
@@ -232,7 +163,6 @@
          }
          var element = $('#evul');
          var elementChart = $('#evulchart');
-         updateDashboardElement(element, elementChart, prefix + powerEvuText + unit, powerEvu);
       }
  }
  
@@ -252,7 +182,6 @@
          }
          var element = $('#hausverbrauchl');
          var elementChart = $('#hausverbrauchlchart');
-         updateDashboardElement(element, elementChart, powerHouseText + unit, powerHouse);
      }
      else if ( mqttmsg == 'openWB/global/WAllChargePoints') {
          var unit = ' W';
@@ -267,7 +196,6 @@
          }
          var element = $('#gesamtll');
          var elementChart = $('#gesamtllchart');
-         updateDashboardElement(element, elementChart, powerAllLpText + unit, powerAllLp);
      }
      else if ( mqttmsg == 'openWB/global/strLastmanagementActive' ) {
          if ( mqttpayload.length >= 5 ) {
@@ -369,7 +297,6 @@
          }
          var element = $('#hausbatteriell');
          var elementChart = $('#hausbatteriellchart');
-         updateDashboardElement(element, elementChart, prefix + speicherwattText + unit, speicherwatt);
      }
      else if ( mqttmsg == 'openWB/housebattery/%Soc' ) {
          var speicherSoc = parseInt(mqttpayload, 10);
@@ -387,7 +314,6 @@
          }
          var element = $('#hausbatteriesoc');
          var elementChart = $('#hausbatteriesocchart');
-         updateDashboardElement(element, elementChart, speicherSocText + unit, speicherSoc);
      }
      else if ( mqttmsg == 'openWB/housebattery/boolHouseBatteryConfigured' ) {
          if ( mqttpayload == 1 ) {
@@ -397,8 +323,6 @@
              $('.priorityEvBattery').removeClass('hide');
              // priority buttons in modal
              $('#priorityModeBtns').removeClass('hide');
-             // update sparklines
-             $.sparkline_display_visible();
          } else {
              $('.hausbatterie').addClass('hide');
              $('.priorityEvBattery').addClass('hide');
@@ -472,7 +396,6 @@
          }
          var element = $('#pvl');
          var elementChart = $('#pvlchart');
-         updateDashboardElement(element, elementChart, pvwattText + unit, pvwatt);
      }
      else if ( mqttmsg == 'openWB/pv/bool70PVDynStatus') {
          switch (mqttpayload) {
@@ -496,8 +419,6 @@
          if ( (pv1 + pv2) > 0 ) {
              // if pv is configured, show info-cards
              $('.pv').removeClass('hide');
-             // update sparklines
-             $.sparkline_display_visible();
          } else {
              $('.pv').addClass('hide');
          }
@@ -522,7 +443,6 @@
              unit = ' kW';
          }
          var elementChart = parent.find('.ladepunktllchart');
-         updateDashboardElement(element, elementChart, actualPowerText + unit, actualPower);
      }
      else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/kWhchargedsinceplugged$/i ) ) {
          // energy charged since ev was plugged in
@@ -695,8 +615,6 @@
                  break;
              case '1':
                  element.removeClass('hide');
-                 // update sparklines
-                 $.sparkline_display_visible();
                  break;
          }
      }
@@ -711,36 +629,37 @@
          }
      }
      else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/autolockstatus$/i ) ) {
-         // values used for AutolockStatus flag:
-         // 0 = standby
-         // 1 = waiting for autolock
-         // 2 = autolock performed
-         // 3 = auto-unlock performed
-         var index = getIndex(mqttmsg);  // extract number between two / /
-         var parent = $('[data-lp="' + index + '"]');  // get parent row element for charge point
-         var element = parent.find('.autolockConfiguredLp');  // now get parents respective child element
-         switch ( mqttpayload ) {
-             case '0':
-                 // remove animation from span and set standard colored key icon
-                 element.removeClass('fa-lock fa-lock-open animate-alertPulsation text-red text-green');
-                 element.addClass('fa-key');
-                 break;
-             case '1':
-                 // add animation to standard icon
-                 element.removeClass('fa-lock fa-lock-open text-red text-green');
-                 element.addClass('fa-key animate-alertPulsation');
-                 break;
-             case '2':
-                 // add red locked icon
-                 element.removeClass('fa-lock-open fa-key animate-alertPulsation text-green');
-                 element.addClass('fa-lock text-red');
-                 break;
-             case '3':
-                 // add green unlock icon
-                 element.removeClass('fa-lock fa-key animate-alertPulsation text-red');
-                 element.addClass('fa-lock-open text-green');
-                 break;
-         }
+        // values used for AutolockStatus flag:
+        // 0 = standby
+        // 1 = waiting for autolock
+        // 2 = autolock performed
+        // 3 = auto-unlock performed
+        var index = getIndex(mqttmsg);  // extract number between two / /
+        var parent = $('[data-lp="' + index + '"]');  // get parent row element for charge point
+        var element = parent.find('.autolockConfiguredLp');  // now get parents respective child element
+        console.log("autolock message with payload " + mqttpayload);
+        switch ( mqttpayload ) {
+            case '0':
+                // remove animation from span and set standard colored key icon
+                element.removeClass('fa-lock fa-lock-open animate-alertPulsation text-red text-green');
+                element.addClass('fa-key');
+                break;
+            case '1':
+                // add animation to standard icon
+                element.removeClass('fa-lock fa-lock-open text-red text-green');
+                element.addClass('fa-key animate-alertPulsation');
+                break;
+            case '2':
+                // add red locked icon
+                element.removeClass('fa-lock-open fa-key animate-alertPulsation text-green');
+                element.addClass('fa-lock text-red');
+                break;
+            case '3':
+                // add green unlock icon
+                element.removeClass('fa-lock fa-key animate-alertPulsation text-red');
+                element.addClass('fa-lock-open text-green');
+                break;
+        }
      }
      else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/energyconsumptionper100km$/i ) ) {
          // store configured value in element attribute
