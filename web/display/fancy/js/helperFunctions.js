@@ -118,7 +118,7 @@ function clearPin() {
 function checkIfCharging() {
 	console.log("Checking charge state...");
 	// TODO return charging state (true/false)
-	return false;
+	return true;
 }
 
 /* START / STOP CHARGING */
