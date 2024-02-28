@@ -290,14 +290,14 @@ function getIndex(topic) {
         if ( mqttpayload == 1 ) {
         } else {
         }
-        console.log("boolplugstat " + index + ": " + mqttmsg);
+        console.log("boolplugstat " + index + ": " + mqttpayload);
     }
     else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/boolchargestat$/i ) ) {
         var index = getIndex(mqttmsg);  // extract number between two / /
         if ( mqttpayload == 1 ) {
         } else {
         }
-        console.log("boolchargestat " + index + ": " + mqttmsg);
+        console.log("boolchargestat " + index + ": " + mqttpayload);
     }
     else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/strchargepointname$/i ) ) {
         var index = getIndex(mqttmsg);  // extract number between two / /
