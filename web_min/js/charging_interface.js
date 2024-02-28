@@ -61,7 +61,7 @@ function startCharging() {
 	// Now charging is enabled.
 	// We wait for the vehicle to start charging.
 	// If that doesn't happen, we go back to "not charging" mode.
-	// This is handled by 
+	// TODO: add timeout checking the charging variable.
 }
 
 function showChargingInterface() {
@@ -106,7 +106,7 @@ function stopCharging() {
 	var lp = 1; // charging point 1 by default
 	publish("0", "openWB/set/lp/" + lp + "/ChargePointEnabled");
 	charging = false;
-	
+
 	setTimeout(() => {
 		disableLoadingUI();
 	}, 700);

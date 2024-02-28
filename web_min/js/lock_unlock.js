@@ -1,5 +1,5 @@
 /* PARAMETERS */
-let lock_timeout = 30000;
+let lock_timeout = 30;
 
 /* TRACK FOCUSED ELEMENT */
 let focusedInput = null;
