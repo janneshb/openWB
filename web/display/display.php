@@ -28,6 +28,9 @@ if ($isssold == 1) {
 			case 5:
 				include './colors/index.html';
 				break;
+			case 6:
+				include './fancy/index.html';
+				break;
 			default:
 				include './cards/index.html';
 				break;
