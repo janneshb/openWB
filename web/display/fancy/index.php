@@ -110,8 +110,8 @@
     var plugged_in = false;
     var displaylocked = true;
 
-    function lockDisplay( lock = true ){
-        if( lock == false ){
+    function lockDisplay( lock_ = true ){
+        if( lock_ == false ){
             unlock();
             lockTimeoutHandler = window.setTimeout(lockDisplay, lockTimeout);
         } else {
