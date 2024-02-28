@@ -11,6 +11,8 @@ function lock() {
 	$("#loading_body").addClass("hidden");
 	$("#not_charging_body").addClass("hidden");
 	$("#the_footer").addClass("hidden");
+	$("#lock_container").removeClass("hidden");
+	$("#pin_container").addClass("hidden");
 
 	if (!charging) {
 		disableChargePoint();
@@ -84,9 +86,10 @@ function focusInput() {
 
 /* SHOW PIN INTERFACE */
 function showPinInterface() {
-    document.getElementById("lock_container").style.visibility='hidden';
-    document.getElementById("pin_container").style.visibility='visible';
-    focusedInput = document.getElementById("pin_1");
+	$("#lock_container").addClass("hidden");
+	$("#pin_container").removeClass("hidden");
+
+	focusedInput = document.getElementById("pin_1");
     focusedInput.focus();
 
     document.getElementById('pin_1').addEventListener("blur", focusInput);

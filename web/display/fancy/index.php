@@ -34,7 +34,7 @@
         </button>
     </div>
     
-    <div class="pin_container" id="pin_container" style="visibility: hidden;">
+    <div class="pin_container hidden" id="pin_container">
         <input type="password" enabled="false" maxlength=1 id="pin_1" next="pin_2", prev="pin_1" />
         <input type="password" enabled="false" maxlength=1 id="pin_2" next="pin_3", prev="pin_1" />
         <input type="password" enabled="false" maxlength=1 id="pin_3" next="pin_4", prev="pin_2" />
