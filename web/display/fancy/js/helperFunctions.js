@@ -15,10 +15,35 @@ function lock() {
 function unlock() {
 	console.log("Unlocking interface...");
 	displaylocked = false;
+	showLoadingUI();
+	
+	var charging = checkIfCharging();
+	if (charging) {
+		showChargingUI();
+	} else {
+		showNotChargingUI();
+	}
+}
+
+function showLoadingUI() {
 	$("#locked_body").addClass("hidden");
 	$("#charging_body").addClass("hidden");
 	$("#not_charging_body").addClass("hidden");
 	$("#loading_body").removeClass("hidden");
+}
+
+function showChargingUI() {
+	$("#charging_body").removeClass("hidden");
+	$("#locked_body").addClass("hidden");
+	$("#not_charging_body").addClass("hidden");
+	$("#loading_body").addClass("hidden");
+}
+
+function showNotChargingUI() {
+	$("#not_charging_body").removeClass("hidden");
+	$("#locked_body").addClass("hidden");
+	$("#charging_body").addClass("hidden");
+	$("#loading_body").addClass("hidden");
 }
 
 /* TRACK FOCUSED ELEMENT */
@@ -98,10 +123,7 @@ function startCharging() {
 	charging = false;
 
 	if (displaylocked) {
-		$("#charging_body").removeClass("hidden");
-		$("#locked_body").addClass("hidden");
-		$("#not_charging_body").addClass("hidden");
-		$("#loading_body").addClass("hidden");
+
 	}
 }
 
@@ -112,10 +134,7 @@ function stopCharging() {
 	charging = false;
 
 	if (!displaylocked) {
-		$("#not_charging_body").removeClass("hidden");
-		$("#locked_body").addClass("hidden");
-		$("#charging_body").addClass("hidden");
-		$("#loading_body").addClass("hidden");
+
 	}
 }
 
