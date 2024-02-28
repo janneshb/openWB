@@ -90,6 +90,8 @@ a:hover {
 
 .big_button:disabled, .big_button[disabled] {
 	color: var(--text-color-openWB);
+	border-color: #95a5a6 !important;
+	background-color: #7f8c8d !important;
 	opacity: 1;
 }
 
