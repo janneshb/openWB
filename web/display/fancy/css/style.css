@@ -90,11 +90,13 @@ a:hover {
 
 .big_button:disabled, .big_button[disabled] {
 	color: var(--text-color-openWB);
+}
+
+.grayed_out {
 	border-color: #95a5a6 !important;
 	background-color: #7f8c8d !important;
 	opacity: 0.3;
 }
-
 .big_button_abolute {
 	position: absolute;
 	top: 50vh;

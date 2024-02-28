@@ -181,8 +181,12 @@ function setPluggedIn(p) {
 	plugged_in = p;
 	if (plugged_in) {
 		$("#start_charging_button").attr("disabled", false);
+		$("#start_charging_button").addClass("glowing");
+		$("#start_charging_button").removeClass("grayed_out");
 	} else {
 		$("#start_charging_button").attr("disabled", true);
+		$("#start_charging_button").removeClass("glowing");
+		$("#start_charging_button").addClass("grayed_out");
 	}
 }
 

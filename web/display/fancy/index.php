@@ -73,7 +73,7 @@
     </div>
 </div>
 <div class="bodylike vertically_centered hidden rotating" id="loading_body">
-    <button class="big_button big_button_relative" id="loading_charging_button" disabled>
+    <button class="big_button big_button_relative" id="loading_charging_button">
         <i class="fa fa-spinner"></i>
     </button>
 </div>
