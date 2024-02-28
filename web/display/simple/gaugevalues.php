@@ -34,7 +34,7 @@ foreach($lines as $line) {
 		list(, $displaypincodeold) = explode("=", $line);
 	}
 	if(strpos($line, "displaytheme=") !== false) {
-		list(, $displaythemeold) = str_replace($remove, "", explode('=', $line, 2)[1]);
+		list(, $displaythemeold) = explode("=", $line);
 	}
 }
 $displaypincodeold = trim($displaypincodeold);

@@ -159,7 +159,7 @@ foreach($lines as $line) {
 		list(, $ssdisplayold) = explode("=", $line);
 	}
 	if(strpos($line, "wallboxname=") !== false) {
-		list(, $wallboxname) = explode("=", $line);
+		list(, $wallboxname) = str_replace($remove, "", explode('=', $line, 2)[1]);
 	}
 }
 $displaypincodeold = str_replace("\n", '', $displaypincodeold);
