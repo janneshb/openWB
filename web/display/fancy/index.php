@@ -50,7 +50,7 @@
         <button class="pin_btn" onclick="pinClick(7);">7</button>
         <button class="pin_btn" onclick="pinClick(8);">8</button>
         <button class="pin_btn" onclick="pinClick(9);">9</button>
-        <button class="pin_btn borderless hidden">0</button> <!-- placeholder -->
+        <button class="pin_btn borderless" style="visibility: hidden;">0</button> <!-- placeholder -->
         <button class="pin_btn" onclick="pinClick(0);">0</button>
         <button class="pin_btn borderless" onclick="clearPin();"><i class="fa fa-backspace"></i></button>
         <p class="pin_text hidden" id="wrong_pin_msg">Falsche PIN</p>
@@ -167,7 +167,7 @@
     });
 </script>
 <footer class="hidden" id="the_footer">
-    <p class="settings hidden"><a href="/openWB/web_min/settings.php"><i class="fa fa-cog"></i>&nbsp;Einstellungen</a></p>
+    <p class="settings" style="visibility: hidden;"><a href="/openWB/web_min/settings.php"><i class="fa fa-cog"></i>&nbsp;Einstellungen</a></p>
     <p class="footer_title"><?php echo $wallboxname; ?></p>
     <p class="switch_to_pro"><a href="/openWB/web/display/cards/">Henze-Modus&nbsp;<i class="fa fa-angle-right"></i></a></p>
 </footer>
