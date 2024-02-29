@@ -372,7 +372,6 @@ function getIndex(topic) {
         // 2 = autolock performed
         // 3 = auto-unlock performed
         var index = getIndex(mqttmsg);  // extract number between two / /
-        console.log("autolock message with payload " + mqttpayload);
         switch ( mqttpayload ) {
             case '0':
                 // remove animation from span and set standard colored key icon
@@ -397,6 +396,7 @@ function getIndex(topic) {
         if ( isNaN(consumption) ) {
             consumption = 0;
         }
+        console.log("consumption per 100km: " + consumption);
     }
     else if ( mqttmsg.match( /^openwb\/lp\/[1-9][0-9]*\/boolfinishattimechargeactive$/i ) ) {
         // FANCY: not implemented

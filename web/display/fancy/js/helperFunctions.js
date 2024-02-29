@@ -20,6 +20,8 @@ function lock() {
 }
 
 function unlock() {
+	// TODO: check PIN
+
 	console.log("Unlocking interface...");
 	displaylocked = false;
 	showLoadingUI();
@@ -61,12 +63,20 @@ function showNotChargingUI() {
 /* ENABLE / DISABLE CHARGING */
 function enableChargePoint() {
 	var lp = 1; // charging point 1 by default
-	publish("1", "openWB/set/lp/" + lp + "/ChargePointEnabled");
+	try {
+		publish("1", "openWB/set/lp/" + lp + "/ChargePointEnabled");
+	} catch (error) {
+		console.log("Could not publish msg, err: " + error);
+	}
 }
 
 function disableChargePoint() {
 	var lp = 1; // charging point 1 by default
-	publish("0", "openWB/set/lp/" + lp + "/ChargePointEnabled");
+	try {
+		publish("0", "openWB/set/lp/" + lp + "/ChargePointEnabled");
+	} catch (error) {
+		console.log("Could not publish msg, err: " + error);
+	}
 }
 
 

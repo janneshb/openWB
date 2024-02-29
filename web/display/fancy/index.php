@@ -110,6 +110,7 @@
     var plugged_in = false;
     var displaylocked = true;
 
+    // TODO: debug lock timer
     function lockDisplay( lock_ = true ){
         if( lock_ == false ){
             unlock();
