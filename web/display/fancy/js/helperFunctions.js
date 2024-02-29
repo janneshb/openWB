@@ -20,7 +20,22 @@ function lock() {
 }
 
 function unlock() {
-	// TODO: check PIN
+	// check PIN sequence
+	let pin = "";
+	pin += document.getElementById("pin_1").value;
+	pin += document.getElementById("pin_2").value;
+	pin += document.getElementById("pin_3").value;
+	pin += document.getElementById("pin_4").value;
+	
+	if (pin === document.getElementById("displaypincode").value) {
+		// Don't do anything
+	} else {
+		$("#wrong_pin_msg").removeClass("hidden");
+		setTimeout(() => {
+			for (let i = 0; i < 4; i++) clearPin();
+		}, 300);
+		return;
+	}
 
 	console.log("Unlocking interface...");
 	displaylocked = false;
@@ -225,7 +240,5 @@ function setCharging(c) {
 		showChargingUI();
 	} else if (!charging && !displaylocked) {
 		showNotChargingUI();
-	} else {
-		lock();
 	}
 }

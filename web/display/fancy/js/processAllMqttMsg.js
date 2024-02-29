@@ -133,20 +133,7 @@ function getIndex(topic) {
     if ( mqttmsg == 'openWB/global/WHouseConsumption' ) {
     }
     else if ( mqttmsg == 'openWB/global/WAllChargePoints') {
-        /*
-        var unit = ' W';
-        var powerAllLp = parseInt(mqttpayload, 10);
-        if ( isNaN(powerAllLp) ) {
-            powerAllLp = 0;
-        }
-        powerAllLpText = powerAllLp.toString();
-        if (powerAllLp > 999) {
-            powerAllLpText = (powerAllLp / 1000).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            unit = ' kW';
-        }
-        var element = $('#gesamtll');
-        var elementChart = $('#gesamtllchart');
-        */
+        // FANCY: not implemented
     }
     else if ( mqttmsg == 'openWB/global/strLastmanagementActive' ) {
         // FANCY: not implemented
@@ -188,6 +175,7 @@ function getIndex(topic) {
         }
     }
     else if ( mqttmsg == 'openWB/global/rfidConfigured' ) {
+        // FANCY: not implemented
         if ( mqttpayload == '0' ) {
             // disable manuel Rfid Code
         } else {
