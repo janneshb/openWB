@@ -232,7 +232,7 @@ textarea:focus {
 }
 
 .pin_text {
-	--border-width: 7px;
+	--border-width: 3px;
 
 	margin-top: 5px;
 	width: calc(var(--pin-field-size) - 2*var(--border-width));

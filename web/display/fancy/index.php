@@ -106,13 +106,12 @@
 <script>
     var displaypinaktiv = 1;
     var lockTimeoutHandler = null;
-    var lockTimeout = 30 * 1000;
+    var lockTimeout = 5 * 1000;
 
+    var displaylocked = true;
     var charging = false;
     var plugged_in = false;
-    var displaylocked = true;
 
-    // TODO: debug lock timer
     function lockDisplay( lock_ = true ){
         if( lock_ == false ){
             unlock();
@@ -125,6 +124,7 @@
     }
 
     window.setInterval(function(){
+        console.log("window setInterval");
         $.get(
             { url: "display/cards/checklock.php?lock=1", cache: false },
             function(data){
