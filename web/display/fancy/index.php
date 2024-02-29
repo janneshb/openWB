@@ -128,6 +128,7 @@
         $.get(
             { url: "display/cards/checklock.php?lock=1", cache: false },
             function(data){
+                console.log("data " + data);
                 if( data == "1" ){
                     displaypinaktiv = 1;
                     if( lockTimeoutHandler == null ) {
