@@ -17,6 +17,10 @@ function lock() {
 	if (!charging) {
 		disableChargePoint();
 	}
+
+	// clear PIN
+	for (let i = 0; i < 4; i++) clearPin();
+	$("#wrong_pin_msg").addClass("hidden");
 }
 
 function unlock() {
