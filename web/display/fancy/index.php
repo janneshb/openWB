@@ -106,7 +106,7 @@
 <script>
     var displaypinaktiv = 1;
     var lockTimeoutHandler = null;
-    var lockTimeout = 5 * 1000;
+    var lockTimeout = 30 * 1000;
 
     var displaylocked = true;
     var charging = false;
