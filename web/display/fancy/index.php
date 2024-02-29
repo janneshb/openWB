@@ -85,7 +85,7 @@
 
     <div class="container centered" id="charging_speed_container">
         <div class="radio_container">
-            <label for="solar"><i class="fa fa-sun"></i></label>
+            <label for="chargeModeRadioBtnMin"><i class="fa fa-sun"></i></label>
             <input type="radio" checked="checked" name="charging_speed" value="solar" class="chargeModeRadioBtn" id="chargeModeRadioBtnMin" data-chargeMode="1">
             <span>min + PV</span>
         </div>
@@ -95,7 +95,7 @@
             <span>11kW</span>
         </div>-->
         <div class="radio_container">
-            <label for="fast"><i class="fa fa-running"></i></label>
+            <label for="chargeModeRadioBtnSofort"><i class="fa fa-running"></i></label>
             <input type="radio" name="charging_speed" value="fast" class="chargeModeRadioBtn" id="chargeModeRadioBtnSofort" data-chargeMode="0">
             <span>Sofort</span>
         </div>
