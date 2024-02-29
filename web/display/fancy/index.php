@@ -141,7 +141,7 @@
                 }
             }
         );
-    }, 15000);
+    }, 30000);
 
     $(document).ready(function(){
         // set charge mode on Radio Button Change
