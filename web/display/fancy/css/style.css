@@ -161,7 +161,7 @@ a:hover {
 /* PIN CODE */
 .pin_container {
 	position: absolute;
-	top: 35vh;
+	top: 30vh;
   	left: 50vw;
 	transform: translate(-50%, -50%);
 
