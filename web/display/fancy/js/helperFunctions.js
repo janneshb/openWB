@@ -14,9 +14,7 @@ function lock() {
 	$("#lock_container").removeClass("hidden");
 	$("#pin_container").addClass("hidden");
 
-	if (!charging) {
-		disableChargePoint();
-	}
+	if (!checkIfCharging() && !checkIfLoading()) disableChargePoint();
 
 	// clear PIN
 	for (let i = 0; i < 4; i++) clearPin();
@@ -46,8 +44,12 @@ function unlock() {
 	showLoadingUI();
 
 	var charging_ = checkIfCharging();
+	var loading_ = checkIfLoading();
+
 	if (charging_) {
 		showChargingUI();
+	} else if (loading_) {
+		showLoadingUI();
 	} else {
 		disableChargePoint();
 		showNotChargingUI();

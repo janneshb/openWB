@@ -118,7 +118,7 @@
             unlock();
             lockTimeoutHandler = window.setTimeout(lockDisplay, lockTimeout);
         } else {
-            if (!checkIfLoading()) lock();
+            lock();
             window.clearTimeout(lockTimeoutHandler);
             lockTimeoutHandler = null;
         }
@@ -130,7 +130,7 @@
             function(data){
                 if( data == "1" ){
                     displaypinaktiv = 1;
-                    if( lockTimeoutHandler == null && !checkIfLoading()) {
+                    if( lockTimeoutHandler == null) {
                         displaylocked = true;
                         lock();
                     }
