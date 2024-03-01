@@ -55,6 +55,7 @@ function unlock() {
 }
 
 function showLoadingUI() {
+	loading = true;
 	$("#loading_body").removeClass("hidden");
 	$("#locked_body").addClass("hidden");
 	$("#charging_body").addClass("hidden");
@@ -63,6 +64,7 @@ function showLoadingUI() {
 }
 
 function showChargingUI() {
+	loading = false;
 	$("#charging_body").removeClass("hidden");
 	$("#locked_body").addClass("hidden");
 	$("#not_charging_body").addClass("hidden");
@@ -72,6 +74,7 @@ function showChargingUI() {
 }
 
 function showNotChargingUI() {
+	loading = false;
 	$("#not_charging_body").removeClass("hidden");
 	$("#the_footer").removeClass("hidden");
 	$("#locked_body").addClass("hidden");
@@ -170,6 +173,10 @@ function checkIfCharging() {
 
 function checkIfPluggedIn() {
 	return plugged_in;
+}
+
+function checkIfLoading() {
+	return loading;
 }
 
 /* START / STOP CHARGING */

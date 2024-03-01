@@ -111,13 +111,14 @@
     var displaylocked = true;
     var charging = false;
     var plugged_in = false;
+    var loading = false;
 
     function lockDisplay( lock_ = true ){
         if( lock_ == false ){
             unlock();
             lockTimeoutHandler = window.setTimeout(lockDisplay, lockTimeout);
         } else {
-            lock();
+            if (!checkIfLoading()) lock();
             window.clearTimeout(lockTimeoutHandler);
             lockTimeoutHandler = null;
         }
@@ -129,7 +130,7 @@
             function(data){
                 if( data == "1" ){
                     displaypinaktiv = 1;
-                    if( lockTimeoutHandler == null ) {
+                    if( lockTimeoutHandler == null && !checkIfLoading()) {
                         displaylocked = true;
                         lock();
                     }
