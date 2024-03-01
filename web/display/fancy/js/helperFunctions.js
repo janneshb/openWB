@@ -177,6 +177,10 @@ function checkIfPluggedIn() {
 	return plugged_in;
 }
 
+function checkIfLoading() {
+	return loading;
+}
+
 /* START / STOP CHARGING */
 function startCharging() {
 	console.log("Start charging...");
