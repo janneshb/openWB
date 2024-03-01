@@ -45,8 +45,8 @@ function unlock() {
 	displaylocked = false;
 	showLoadingUI();
 
-	var charging = checkIfCharging();
-	if (charging) {
+	var charging_ = checkIfCharging();
+	if (charging_) {
 		showChargingUI();
 	} else {
 		disableChargePoint();

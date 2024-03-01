@@ -113,10 +113,6 @@
     var plugged_in = false;
     var loading = false;
 
-    function checkIfLoading() {
-	    return loading;
-    }
-
     function lockDisplay( lock_ = true ){
         if( lock_ == false ){
             unlock();
