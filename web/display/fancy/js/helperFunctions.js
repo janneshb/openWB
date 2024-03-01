@@ -252,5 +252,7 @@ function setCharging(c) {
 		showChargingUI();
 	} else if (!charging && !displaylocked) {
 		showNotChargingUI();
+	} else {
+		lock();
 	}
 }
