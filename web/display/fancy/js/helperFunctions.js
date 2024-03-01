@@ -41,7 +41,6 @@ function unlock() {
 
 	console.log("Unlocking interface...");
 	displaylocked = false;
-	showLoadingUI();
 
 	var charging_ = checkIfCharging();
 	var loading_ = checkIfLoading();
