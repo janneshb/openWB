@@ -118,7 +118,7 @@
             unlock();
             lockTimeoutHandler = window.setTimeout(lockDisplay, lockTimeout);
         } else {
-            if (!loading) lock();
+            lock();
             window.clearTimeout(lockTimeoutHandler);
             lockTimeoutHandler = null;
         }
