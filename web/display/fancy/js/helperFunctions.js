@@ -239,6 +239,7 @@ function setPluggedIn(p) {
 		$("#start_charging_button").addClass("glowing");
 		$("#start_charging_button").removeClass("grayed_out");
 	} else {
+		setCharging(false);
 		$("#start_charging_button").attr("disabled", true);
 		$("#start_charging_button").removeClass("glowing");
 		$("#start_charging_button").addClass("grayed_out");
